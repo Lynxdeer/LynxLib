@@ -1,0 +1,6 @@
+name: LynxLib
+version: '${version}'
+main: com.lynxdeer.lynxlib.LynxLib
+api-version: 1.19
+authors: [Lynxdeer]
+description: General library for Lynxdeer's plugins.
