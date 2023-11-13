@@ -3,17 +3,17 @@
 LynxLib will be a general library for all of my (Lynxdeer's) plugins. You're free to use it if you'd like. I'll include a compiled verison in the releases tab when it's ready. Until 1.20.3 comes out (for tickrates), I'm developing this for 1.19.4.
 ***
 # Future Features
-### **General Things I Copy + Paste every project**<br>
+### **General**
 \> A `debug` method that takes any object and sends it to any player named "Lynxdeer" (Will be configurable later)<br>
 \> A `tabComplete` method that takes a string and list of strings and gets which ones start with the first string. In other words, better tab completion.<br>
 \> A `tabCompletePlayers` method that gets a string and all players' names and tab completes them.<br>
 \> A `hitbox` method that checks if a Location object intersects with any bounding boxes of nearby entities <br>
-\> A `hitboxMovementCheck` method that checks if a Location object intersects with any bounding boxes of nearby PLAYERS expanded based on that player's motion to solve the 20 tick problem<br>
+\> A `hitboxMovementCheck` method that checks if a Location object intersects with any bounding boxes of nearby PLAYERS expanded based on that player's motion to solve the 20 tick problem, may not be needed in 1.20.3<br>
 \> A `timeFormat` method that formats seconds in hh:mm:ss.<br>
 ### **ItemBuilder**
-\> Self-explanatory.<br>
+\> An easy way to add name, lore, and other data to items without using item meta.<br>
 ### **Display Entity Utils**
-\> Pivot points<br>
+\> Pivot Points<br>
 \> Hitboxes<br>
 \> Gravity<br>
 \> Method to move to a location<br>
