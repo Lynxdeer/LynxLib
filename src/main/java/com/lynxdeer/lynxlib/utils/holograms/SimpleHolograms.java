@@ -1,4 +1,4 @@
-package com.lynxdeer.lynxlib.utils;
+package com.lynxdeer.lynxlib.utils.holograms;
 
 import com.lynxdeer.lynxlib.LynxLib;
 import net.kyori.adventure.text.Component;
@@ -10,7 +10,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class Holograms {
+public class SimpleHolograms {
 	
 	public static ArmorStand createHologram(Location loc, String text) {
 		// Using this instead of World#spawnEntity prevents the armor stand from flashing when spawned.
@@ -39,7 +39,7 @@ public class Holograms {
 		});
 		new BukkitRunnable() {@Override public void run() {
 			armorStand.remove();
-		}}.runTaskLater(LynxLib.getPlugin(), time);
+		}}.runTaskLater(LynxLib.getCurrentPlugin(), time);
 		return armorStand;
 	}
 	
@@ -61,7 +61,7 @@ public class Holograms {
 					this.cancel();
 				}
 			}
-		}.runTaskTimer(LynxLib.getLynxLibPlugin(), 1L, 1L);
+		}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
 	}
 	
 }

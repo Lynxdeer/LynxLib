@@ -15,6 +15,8 @@ public class LynxDisplay {
 	
 	public ItemDisplay display;
 	
+	public Location baseLocation;
+	
 	public Vector3f transform;
 	public Quaternionf afterRotation; // (Left rotation)
 	public Vector3f scale;
@@ -23,17 +25,32 @@ public class LynxDisplay {
 	public HashMap<Transformation, Integer> transformationQueue = new HashMap<>();
 	
 	public LynxDisplay(Location loc, ItemStack item) {
+		baseLocation = loc;
 		display = loc.getWorld().spawn(loc, ItemDisplay.class, i -> {
 			i.setItemStack(item);
 			// transform
 		});
 	}
 	
-	public void move(Location loc, Ease easing) {
+	public LynxDisplay(ItemDisplay originalDisplay) {
+		display = originalDisplay;
+		baseLocation = display.getLocation();
+		Transformation transformation = display.getTransformation();
+		transform = transformation.getTranslation();
+		afterRotation = transformation.getLeftRotation();
+		scale = transformation.getScale();
+		beforeRotation = transformation.getRightRotation();
+	}
+	
+	public Location getLocation() { // Gets the location added to the transform.
+		return baseLocation.clone().add(transform.x, transform.y, transform.z);
+	}
+	
+	public void move(Location loc, int duration, Ease easing) {
 	
 	}
 	
-	public void move(Vector vector, Ease easing) {
+	public void move(Vector vector, int duration, Ease easing) {
 	
 	}
 	

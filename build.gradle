@@ -8,8 +8,16 @@ version = '1.0.0'
 repositories {
     mavenCentral()
     maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "dmulloy2-repo"
+        url = "https://repo.dmulloy2.net/repository/public/"
     }
     maven {
         name = "sonatype"
@@ -18,7 +26,9 @@ repositories {
 }
 
 dependencies {
+    compileOnly "org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT"
     compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
+    compileOnly "com.comphenix.protocol:ProtocolLib:5.0.0"
 }
 
 def targetJavaVersion = 17

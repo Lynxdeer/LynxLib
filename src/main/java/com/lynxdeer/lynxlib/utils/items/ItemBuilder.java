@@ -3,7 +3,6 @@ package com.lynxdeer.lynxlib.utils.items;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,8 +25,7 @@ public class ItemBuilder {
 	
 	
 	public ItemBuilder(Material material) {
-		this.material = (material == null) ? Material.AIR : material;
-		this.amount = 1;
+		this(material, 1);
 	}
 	
 	public ItemBuilder(Material material, int amount) {
@@ -41,14 +39,15 @@ public class ItemBuilder {
 	public ItemBuilder name(Component name) { this.name = name; return this; }
 	
 	
-	public ItemBuilder loreFromStrings(List<String> lore) {
-		List<Component> convertedComponents = new ArrayList<>(); lore.forEach(line -> convertedComponents.add(Component.text(line)));
+	public ItemBuilder lore(String... lore) {
+		List<Component> convertedComponents = new ArrayList<>();
+		List.of(lore).forEach(line -> convertedComponents.add(Component.text(line)));
 		this.lore = convertedComponents;
 		return this;
 	}
 	
-	public ItemBuilder lore(List<Component> lore) {
-		this.lore = lore;
+	public ItemBuilder lore(Component... lore) {
+		this.lore = List.of(lore);
 		return this;
 	}
 	
@@ -63,8 +62,7 @@ public class ItemBuilder {
 
 
 	public ItemBuilder customModelData(int customModelData) { this.customModelData = customModelData; return this; }
-	public ItemBuilder itemFlags(List<ItemFlag> flags) { this.itemFlags.addAll(flags); return this; }
-	public ItemBuilder itemFlag(ItemFlag flag) { this.itemFlags.add(flag); return this; }
+	public ItemBuilder addItemFlags(ItemFlag... flags) { this.itemFlags.addAll(List.of(flags)); return this; }
 	public ItemBuilder unbreakable() { unbreakable = true; return this; }
 	
 	public ItemBuilder dye(int red, int green, int blue) { color = new int[] {red, green, blue}; return this; }

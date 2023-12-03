@@ -1,4 +1,4 @@
-package com.lynxdeer.lynxlib.utils.display;
+package com.lynxdeer.lynxlib.utils.display.enums;
 
 public enum EaseType {
 	IN, // easeInQuint on easings.net

@@ -1,7 +1,8 @@
-package com.lynxdeer.lynxlib.utils;
+package com.lynxdeer.lynxlib.utils.misc;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.md_5.bungee.api.ChatColor;
 
 public class TextUtils {
 	
@@ -18,6 +19,10 @@ public class TextUtils {
 				.replaceAll("5", "s")
 				.replaceAll("8", "b")
 				.toLowerCase();
+	}
+	
+	public static Component parseColorCodes(String text) {
+		return Component.text(ChatColor.translateAlternateColorCodes('&', text));
 	}
 	
 }
