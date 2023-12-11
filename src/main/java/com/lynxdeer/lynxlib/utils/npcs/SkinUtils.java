@@ -1,7 +1,10 @@
 package com.lynxdeer.lynxlib.utils.npcs;
 
 import com.mojang.authlib.GameProfile;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
@@ -19,6 +22,17 @@ public class SkinUtils {
 	public String base64ToUrl(String base64) {
 		byte[] urlBytes = Base64.getDecoder().decode(base64);
 		return new String(urlBytes, StandardCharsets.UTF_8);
+	}
+	
+	public static ItemStack getPlayerHead(UUID uuid) { return getPlayerHead(Bukkit.getOfflinePlayer(uuid)); }
+	public static ItemStack getPlayerHead(String s)  { return getPlayerHead(Bukkit.getOfflinePlayer(s)); }
+	
+	public static ItemStack getPlayerHead(OfflinePlayer player) {
+		ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+		SkullMeta meta = (SkullMeta)item.getItemMeta();
+		meta.setOwningPlayer(player);
+		item.setItemMeta(meta);
+		return item;
 	}
 	
 	public static ItemStack textureToHead(String texture) {

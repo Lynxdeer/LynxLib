@@ -25,4 +25,11 @@ public class TextUtils {
 		return Component.text(ChatColor.translateAlternateColorCodes('&', text));
 	}
 	
+	public static String formatTime(long seconds) {
+		int hours = (int) (seconds / 3600);
+		int minutes = (int) ((seconds % 3600) / 60);
+		int secs = (int) (seconds % 60);
+		return (hours == 0) ? String.format("%02d:%02d", minutes, secs) : String.format("%02d:%02d:%02d", hours, minutes, secs);
+	}
+	
 }

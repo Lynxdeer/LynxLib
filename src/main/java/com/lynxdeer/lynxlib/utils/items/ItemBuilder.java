@@ -3,13 +3,16 @@ package com.lynxdeer.lynxlib.utils.items;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemBuilder {
 	
@@ -18,9 +21,10 @@ public class ItemBuilder {
 	public int customModelData;
 	public Component name;
 	public List<Component> lore;
-	public List<ItemFlag> itemFlags;
+	public List<ItemFlag> itemFlags = new ArrayList<>();
 	public boolean unbreakable;
 	public int[] color = null;
+	public HashMap<Enchantment, Integer> enchantments = new HashMap<>();
 	
 	
 	
@@ -48,6 +52,11 @@ public class ItemBuilder {
 	
 	public ItemBuilder lore(Component... lore) {
 		this.lore = List.of(lore);
+		return this;
+	}
+	
+	public ItemBuilder enchant(Enchantment enchantment, int level) {
+		enchantments.put(enchantment, level);
 		return this;
 	}
 	
@@ -79,6 +88,10 @@ public class ItemBuilder {
 		meta.displayName(name);
 		if (unbreakable) meta.setUnbreakable(true); // Setting unbreakable to false could potentially cause some problems. This works instead.
 		meta.lore(lore);
+		for (ItemFlag flag : itemFlags)
+			meta.addItemFlags(flag);
+		for (Map.Entry<Enchantment, Integer> enchantment : enchantments.entrySet())
+			meta.addEnchant(enchantment.getKey(), enchantment.getValue(), true);
 		
 		if (color != null && meta instanceof LeatherArmorMeta lam) {
 			lam.setColor(Color.fromRGB( color[0], color[1], color[2] ));

@@ -19,7 +19,7 @@ public class LL {
 		if (s instanceof Location) s = "x" + ((Location) s).getX() + " y" + ((Location) s).getY() + " z" + ((Location) s).getZ();
 		if (s instanceof Vector) s = "x" + ((Vector) s).getX() + " y" + ((Vector) s).getY() + " z" + ((Vector) s).getZ();
 		for (Player p : Bukkit.getOnlinePlayers())
-			if (p.isOp() && (p.hasMetadata("debug") || p.getMetadata("debug").get(0).asBoolean()))
+			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
 				p.sendMessage(Component.text("[Debug] " + s).hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!"))));
 		Bukkit.getLogger().log(Level.INFO, "[Debug] " + s);
 	}
