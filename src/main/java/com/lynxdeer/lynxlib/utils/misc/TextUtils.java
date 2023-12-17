@@ -21,7 +21,7 @@ public class TextUtils {
 				.toLowerCase();
 	}
 	
-	public static Component parseColorCodes(String text) {
+	public static Component parse(String text) { // Short for parseColorCodes. Because I would want to use this a lot, I've shortened it.
 		return Component.text(ChatColor.translateAlternateColorCodes('&', text));
 	}
 	
@@ -30,6 +30,27 @@ public class TextUtils {
 		int minutes = (int) ((seconds % 3600) / 60);
 		int secs = (int) (seconds % 60);
 		return (hours == 0) ? String.format("%02d:%02d", minutes, secs) : String.format("%02d:%02d:%02d", hours, minutes, secs);
+	}
+	
+	public static String wrapNewLines(String original) {
+		return wrapNewLines(original, 1);
+	}
+	
+	public static String wrapNewLines(String original, int amount) {
+		if (amount < 0) return original;
+		return "§r" + "\n".repeat(amount) + original + "\n".repeat(amount) + "§r";
+	}
+	
+	public static Component wrapNewLines(Component original, int amount) {
+		Component ret = Component.empty();
+		for (int i = 0; i < amount; i++) ret = ret.append(Component.newline());
+		ret = ret.append(original);
+		for (int i = 0; i < amount; i++) ret = ret.append(Component.newline());
+		return ret;
+	}
+	
+	public static Component wrapNewLines(Component original) {
+		return wrapNewLines(original, 1);
 	}
 	
 }

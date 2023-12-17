@@ -43,4 +43,13 @@ public class LL {
 		return (millis / (1000 / LynxLib.tickRate));
 	}
 	
+	public static void playClearSound(Player p, String s, float volume, float pitch) {
+		Location loc = p.getEyeLocation();
+		p.playSound(loc, s, 1000, pitch);
+		for (Player lp : Bukkit.getOnlinePlayers()) {
+			if (lp == p) continue;
+			lp.playSound(loc, s, 4 * volume/Math.round(loc.distance(lp.getEyeLocation())), pitch);
+		}
+	}
+	
 }

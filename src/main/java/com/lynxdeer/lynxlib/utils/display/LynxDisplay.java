@@ -46,11 +46,11 @@ public class LynxDisplay {
 		return baseLocation.clone().add(transform.x, transform.y, transform.z);
 	}
 	
-	public void move(Location loc, int duration, Ease easing) {
+	public void move(Location loc, double duration, Ease easing) {
 	
 	}
 	
-	public void move(Vector vector, int duration, Ease easing) {
+	public void move(Vector vector, double duration, Ease easing) {
 	
 	}
 	
