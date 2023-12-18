@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LynxLibCommand extends BukkitCommand {
 	
-	public static boolean serverDebug = true;
+	public static boolean consoleDebug = true;
 	
 	public LynxLibCommand(@NotNull String name) {
 		super(name);
@@ -30,8 +30,8 @@ public class LynxLibCommand extends BukkitCommand {
 					p.setMetadata("debug", new FixedMetadataValue(LynxLib.getCurrentPlugin(),!(p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean())));
 					p.sendMessage("§eToggled debug messages to §6" + p.getMetadata("debug").get(0).asBoolean());
 				} else {
-					serverDebug = !serverDebug;
-					sender.sendMessage("§eToggled server debug messages to §6" + serverDebug);
+					consoleDebug = !consoleDebug;
+					sender.sendMessage("§eToggled console debug messages to §6" + consoleDebug);
 				}
 			}
 		}

@@ -14,10 +14,11 @@ public class Ease {
 	
 	public double get() {
 		return switch(type) {
-			case LINEAR -> progress;
+			case LINEAR -> this.progress;
 			case IN -> 0.0;
 			case OUT -> 0.0;
-			case IN_OUT -> 0.0;
+			case IN_OUT -> progress < 0.5 ? 16 * Math.pow(progress, 5) :
+							1 - Math.pow(-2 * progress + 2, 5) / 2;
 		};
 		// TODO: ACTUALLY RETURN REAL EASING
 	}
