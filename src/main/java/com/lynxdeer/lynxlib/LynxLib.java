@@ -1,6 +1,8 @@
 package com.lynxdeer.lynxlib;
 
 import com.lynxdeer.lynxlib.commands.LynxLibCommand;
+import com.lynxdeer.lynxlib.utils.display.LynxDisplay;
+import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -15,6 +17,7 @@ public final class LynxLib {
 	
 	public static void init(JavaPlugin plugin) {
 		tickRate = 20;
+		PhysicsObject.gravityRate = 9.8f/tickRate;
 		currentPlugin = plugin;
 		Glowing.registerGlowPacketHandler();
 		try {

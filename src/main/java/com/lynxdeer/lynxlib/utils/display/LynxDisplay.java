@@ -1,5 +1,7 @@
 package com.lynxdeer.lynxlib.utils.display;
 
+import com.lynxdeer.lynxlib.LL;
+import com.lynxdeer.lynxlib.LynxLib;
 import org.bukkit.Location;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
@@ -46,12 +48,27 @@ public class LynxDisplay {
 		return baseLocation.clone().add(transform.x, transform.y, transform.z);
 	}
 	
-	public void move(Location loc, double duration, Ease easing) {
-	
+	public void teleport(Location loc) {
+		baseLocation = loc;
+		transform = new Vector3f(0, 0, 0);
 	}
 	
-	public void move(Vector vector, double duration, Ease easing) {
+	public void move(Location loc, double duration, Ease easing) {
+		Location original = this.getLocation();
+		Vector v = original.subtract(loc).toVector();
+		this.move(v.toVector3f(), duration, easing);
+	}
 	
+	public void move(Vector3f vector, double duration, Ease easing) {
+		
+		// TODO: EASING, MAKE LINEAR NOT TICK
+		
+		this.display.setInterpolationDelay(0);
+		this.display.setInterpolationDuration(LL.millisToTicks((int) duration * 1000));
+		
+		
+		this.transform.add(vector);
+		this.display.setTransformation(new Transformation(transform, afterRotation, scale, beforeRotation));
 	}
 	
 }
