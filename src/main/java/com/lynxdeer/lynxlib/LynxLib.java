@@ -13,10 +13,12 @@ import java.lang.reflect.Field;
 public final class LynxLib {
 	
 	private static JavaPlugin currentPlugin;
-	public static int tickRate;
+	public static int tickRate = 20;
+	public static int tickRateMillis = 50;
 	
 	public static void init(JavaPlugin plugin) {
 		tickRate = 20;
+		tickRateMillis = 1000/tickRate;
 		PhysicsObject.gravityRate = 9.8f/tickRate;
 		currentPlugin = plugin;
 		Glowing.registerGlowPacketHandler();

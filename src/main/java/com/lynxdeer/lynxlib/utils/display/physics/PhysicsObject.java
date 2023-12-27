@@ -1,7 +1,9 @@
 package com.lynxdeer.lynxlib.utils.display.physics;
 
 import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
+import com.lynxdeer.lynxlib.utils.display.Ease;
 import com.lynxdeer.lynxlib.utils.display.LynxDisplay;
+import com.lynxdeer.lynxlib.utils.display.enums.EaseType;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.joml.Matrix3f;
@@ -39,6 +41,7 @@ public class PhysicsObject extends LynxDisplay {
 		velocity.sub(0, gravityRate, 0);
 		beforeRotation = afterRotation; // I hope I don't have to clone the quaternionf. That would be stupid asf, I doubt I do, but it needs testing.
 		afterRotation.add(DisplayUtils.eulerToQuaternion(torque.x, torque.y, torque.z));
+		move(velocity, 1, new Ease(EaseType.LINEAR));
 		checkCollisions();
 	}
 	

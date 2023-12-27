@@ -11,8 +11,8 @@ public class DisplayUtils {
 
 	public static ArrayList<PhysicsObject> physicsObjects = new ArrayList<>();
 	
-	public static void spawnPhysicsObject(Location loc, ItemStack item, double mass) {
-		new PhysicsObject(loc, item, mass);
+	public static void spawnPhysicsObject(Location loc, ItemStack item) {
+		new PhysicsObject(loc, item);
 	}
 	
 	// Thanks, ChatGPT, now I don't have to do math!
