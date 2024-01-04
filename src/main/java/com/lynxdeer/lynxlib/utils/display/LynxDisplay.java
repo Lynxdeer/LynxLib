@@ -1,7 +1,6 @@
 package com.lynxdeer.lynxlib.utils.display;
 
 import com.lynxdeer.lynxlib.LL;
-import com.lynxdeer.lynxlib.LynxLib;
 import org.bukkit.Location;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;

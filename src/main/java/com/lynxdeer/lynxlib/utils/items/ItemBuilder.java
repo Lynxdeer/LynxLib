@@ -18,7 +18,7 @@ public class ItemBuilder {
 	
 	public Material material;
 	public int amount;
-	public int customModelData;
+	public int customModelData = 0;
 	public Component name;
 	public List<Component> lore;
 	public List<ItemFlag> itemFlags = new ArrayList<>();
@@ -86,6 +86,7 @@ public class ItemBuilder {
 		ItemMeta meta = item.getItemMeta();
 		
 		meta.displayName(name);
+		if (customModelData > 0) meta.setCustomModelData(customModelData);
 		if (unbreakable) meta.setUnbreakable(true); // Setting unbreakable to false could potentially cause some problems. This works instead.
 		meta.lore(lore);
 		for (ItemFlag flag : itemFlags)
