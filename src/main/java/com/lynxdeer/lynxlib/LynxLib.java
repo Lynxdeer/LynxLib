@@ -1,7 +1,6 @@
 package com.lynxdeer.lynxlib;
 
 import com.lynxdeer.lynxlib.commands.LynxLibCommand;
-import com.lynxdeer.lynxlib.utils.display.LynxDisplay;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;

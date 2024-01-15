@@ -4,6 +4,7 @@ import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,22 @@ public class DisplayUtils {
 		float yaw = (float) Math.atan2(siny_cosp, cosy_cosp);
 		
 		return new float[]{roll, pitch, yaw};
+	}
+	
+	public static Quaternionf translateDegrees(Quaternionf q) {
+		return new Quaternionf(
+				(float) Math.toDegrees(q.x),
+				(float) Math.toDegrees(q.y),
+				(float) Math.toDegrees(q.z),
+				(float) Math.toDegrees(q.w));
+	}
+	
+	public static Vector3f convertQuaternionToVector(Quaternionf q) {
+		
+		return new Vector3f(
+				2 * (q.x * q.z - q.w * q.y),
+				2 * (q.y * q.z + q.w * q.x),
+				1 - 2 * (q.x * q.x + q.y * q.y)).normalize();
 	}
 
 }

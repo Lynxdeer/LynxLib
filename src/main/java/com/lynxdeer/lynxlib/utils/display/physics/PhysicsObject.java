@@ -1,12 +1,14 @@
 package com.lynxdeer.lynxlib.utils.display.physics;
 
+import com.lynxdeer.lynxlib.LL;
+import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
-import com.lynxdeer.lynxlib.utils.display.Ease;
 import com.lynxdeer.lynxlib.utils.display.LynxDisplay;
-import com.lynxdeer.lynxlib.utils.display.enums.EaseType;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Matrix3f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class PhysicsObject extends LynxDisplay {
@@ -27,22 +29,35 @@ public class PhysicsObject extends LynxDisplay {
 	
 	public PhysicsObject(Location loc, ItemStack item, float mass) {
 		super(loc, item);
+		
 		this.mass = new Matrix3f(mass, mass, mass, mass, mass, mass, mass, mass, mass); // TODO! Do some actual mass matrix calculations
 		this.velocity = new Vector3f(0, 0, 0);
 		this.torque = new Vector3f(0, 0, 0);
+		
 		DisplayUtils.physicsObjects.add(this);
-	}
-	
-	public void startTickUpdates() {
-		tick();
+		this.tick();
+		
+		if (PhysicsUtils.physicsRunnable == null) {
+			PhysicsUtils.startPhysicsRunnable();
+		}
 	}
 	
 	public void tick() {
-		velocity.sub(0, gravityRate, 0);
-		beforeRotation = afterRotation; // I hope I don't have to clone the quaternionf. That would be stupid asf, I doubt I do, but it needs testing.
-		afterRotation.add(DisplayUtils.eulerToQuaternion(torque.x, torque.y, torque.z));
-		move(velocity, 1, new Ease(EaseType.LINEAR));
-		checkCollisions();
+		for (int i = 0; i < PhysicsUtils.collisionAccuracy; i++) {
+			
+			velocity.sub(0, gravityRate, 0);
+			beforeRotation = new Quaternionf(afterRotation); // I hope I don't have to clone the quaternionf. That would be stupid asf, I doubt I do, but it needs testing.
+			afterRotation.add( new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z));
+			
+			move(velocity, LynxLib.tickRateMillis);
+			rotate(new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z), LynxLib.tickRateMillis);
+			
+			checkCollisions();
+		}
+		if (this.getLocation().getY() < -128) {
+			this.display.remove();
+			DisplayUtils.physicsObjects.remove(this);
+		}
 	}
 	
 	public void checkCollisions() {
@@ -53,9 +68,10 @@ public class PhysicsObject extends LynxDisplay {
 		velocity.add(velocity);
 	}
 	
-	public void applyVelocity(Vector3f velocity, Location source) {
-		velocity.add(velocity);
-		torque.add(PhysicsUtils.calculateTorque(velocity, source.subtract(getLocation()).toVector().toVector3f(), mass));
+	public void applyVelocity(float power, Location source) {
+		Vector3f dir = source.subtract(getLocation()).toVector().toVector3f();
+		velocity.add( dir.normalize().mul(power) );
+		torque.add(PhysicsUtils.calculateTorque(velocity, dir, mass));
 	}
 	
 }

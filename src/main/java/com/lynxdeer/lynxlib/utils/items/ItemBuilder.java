@@ -9,10 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ItemBuilder {
 	
@@ -25,6 +22,8 @@ public class ItemBuilder {
 	public boolean unbreakable;
 	public int[] color = null;
 	public HashMap<Enchantment, Integer> enchantments = new HashMap<>();
+	public Set<Material> canPlace;
+	public Set<Material> canDestroy;
 	
 	
 	
@@ -52,6 +51,15 @@ public class ItemBuilder {
 	
 	public ItemBuilder lore(Component... lore) {
 		this.lore = List.of(lore);
+		return this;
+	}
+	
+	public ItemBuilder canDestroy(Material... canDestroy) {
+		this.canDestroy = Set.of(canDestroy);
+		return this;
+	}
+	public ItemBuilder canPlace(Material... canPlace) {
+		this.canPlace = Set.of(canPlace);
 		return this;
 	}
 	
@@ -84,6 +92,9 @@ public class ItemBuilder {
 		item.setAmount(amount);
 		
 		ItemMeta meta = item.getItemMeta();
+		
+		if (this.canDestroy != null) meta.setCanDestroy(this.canDestroy);
+		if   (this.canPlace != null) meta.setCanPlaceOn(this.canPlace);
 		
 		meta.displayName(name);
 		if (customModelData > 0) meta.setCustomModelData(customModelData);

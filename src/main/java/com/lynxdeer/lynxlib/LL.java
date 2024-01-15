@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class LL {
 	public static void debug(Object s) {
 		if (s instanceof Location) s = "x" + ((Location) s).getX() + " y" + ((Location) s).getY() + " z" + ((Location) s).getZ();
 		if (s instanceof Vector) s = "x" + ((Vector) s).getX() + " y" + ((Vector) s).getY() + " z" + ((Vector) s).getZ();
+		if (s instanceof Vector3f) s = "x" + ((Vector3f) s).x + " y" + ((Vector3f) s).y + " z" + ((Vector3f) s).z;
+		if (s instanceof Quaternionf) s = "x" + ((Quaternionf) s).x + " y" + ((Quaternionf) s).y + " z" + ((Quaternionf) s).z  + " w" + ((Quaternionf) s).w;
 		for (Player p : Bukkit.getOnlinePlayers())
 			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
 				p.sendMessage(Component.text("[Debug] " + s).hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!"))));
