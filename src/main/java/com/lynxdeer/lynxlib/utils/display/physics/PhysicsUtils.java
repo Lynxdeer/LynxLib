@@ -23,8 +23,6 @@ public class PhysicsUtils {
 		// 2. Multiply by the inverse inertia tensor to account for the object's resistance to rotation
 		torque.mul(inverseInertia);
 		
-		LL.debug(torque);
-		
 		return torque;
 	}
 	

@@ -45,7 +45,7 @@ public class PhysicsObject extends LynxDisplay {
 	public void tick() {
 		for (int i = 0; i < PhysicsUtils.collisionAccuracy; i++) {
 			
-			velocity.sub(0, gravityRate, 0);
+			velocity.sub(0, gravityRate/PhysicsUtils.collisionAccuracy, 0);
 			beforeRotation = new Quaternionf(afterRotation); // I hope I don't have to clone the quaternionf. That would be stupid asf, I doubt I do, but it needs testing.
 			afterRotation.add( new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z));
 			
@@ -54,6 +54,10 @@ public class PhysicsObject extends LynxDisplay {
 			
 			checkCollisions();
 		}
+		LL.debug(velocity);
+		LL.debug(torque);
+		LL.debug(beforeRotation);
+		LL.debug(afterRotation);
 		if (this.getLocation().getY() < -128) {
 			this.display.remove();
 			DisplayUtils.physicsObjects.remove(this);
@@ -69,7 +73,7 @@ public class PhysicsObject extends LynxDisplay {
 	}
 	
 	public void applyVelocity(float power, Location source) {
-		Vector3f dir = source.subtract(getLocation()).toVector().toVector3f();
+		Vector3f dir = DisplayUtils.vectortovector3f(source.subtract(getLocation()).toVector());
 		velocity.add( dir.normalize().mul(power) );
 		torque.add(PhysicsUtils.calculateTorque(velocity, dir, mass));
 	}

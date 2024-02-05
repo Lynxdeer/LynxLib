@@ -2,7 +2,9 @@ package com.lynxdeer.lynxlib.utils.display;
 
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -71,6 +73,14 @@ public class DisplayUtils {
 				2 * (q.x * q.z - q.w * q.y),
 				2 * (q.y * q.z + q.w * q.x),
 				1 - 2 * (q.x * q.x + q.y * q.y)).normalize();
+	}
+	
+	public static Location vector3ftoLocation(World world, Vector3f vec) {
+		return new Location(world, vec.x, vec.y, vec.z);
+	}
+	
+	public static Vector3f vectortovector3f(Vector vec) {
+		return new Vector3f((float) vec.getX(), (float) vec.getY(), (float) vec.getZ());
 	}
 
 }

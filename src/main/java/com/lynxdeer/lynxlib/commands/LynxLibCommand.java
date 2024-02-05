@@ -1,6 +1,7 @@
 package com.lynxdeer.lynxlib.commands;
 
 import com.lynxdeer.lynxlib.LynxLib;
+import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;

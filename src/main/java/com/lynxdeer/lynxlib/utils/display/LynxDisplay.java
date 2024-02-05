@@ -1,10 +1,14 @@
 package com.lynxdeer.lynxlib.utils.display;
 
 import com.lynxdeer.lynxlib.LL;
+import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.display.enums.EaseType;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.joml.Matrix4f;
@@ -55,7 +59,7 @@ public class LynxDisplay {
 	
 	public Vector3f getCenter() {
 		
-		return getLocation().toVector().toVector3f().add(DisplayUtils.convertQuaternionToVector(this.afterRotation));
+		return DisplayUtils.vectortovector3f(getLocation().toVector()).add(DisplayUtils.convertQuaternionToVector(this.afterRotation));
 		
 	}
 	
@@ -76,7 +80,7 @@ public class LynxDisplay {
 	public void move(Location loc, double duration, Ease easing) {
 		Location original = this.getLocation();
 		Vector v = original.subtract(loc).toVector();
-		this.move(v.toVector3f(), duration, easing);
+		this.move(DisplayUtils.vectortovector3f(v), duration, easing);
 	}
 	
 	public void move(Vector3f vector, double duration, Ease easing) {
@@ -92,16 +96,35 @@ public class LynxDisplay {
 	}
 	
 	public void rotate(float x, float y, float z, double duration) {
-		rotate(DisplayUtils.translateDegrees(new Quaternionf().rotateXYZ(x, y, z)), duration);
+		this.rotate(DisplayUtils.translateDegrees(new Quaternionf().rotateXYZ(x, y, z)), duration);
 	}
 	
 	public void rotate(Quaternionf quaternion, double duration) { // ADD EASING LATER!
 		this.display.setInterpolationDelay(0);
 		this.display.setInterpolationDuration(LL.millisToTicks((int) duration * 1000));
 		
-		this.beforeRotation = afterRotation;
+		this.beforeRotation = new Quaternionf(afterRotation);
 		this.afterRotation.add(quaternion);
+		this.afterRotation.normalize();
 		this.display.setTransformation(new Transformation(transform, afterRotation, scale, beforeRotation));
+	}
+	
+	
+	
+	private boolean debugMode = false;
+	public void debugMode(boolean debug) {
+		debugMode = debug;
+		if (debugMode) {
+			new BukkitRunnable() {@Override public void run() {
+				if (!debugMode) this.cancel();
+				World world = baseLocation.getWorld();
+				world.spawnParticle(Particle.END_ROD, baseLocation, 1, 0, 0, 0, 0);
+				world.spawnParticle(Particle.END_ROD, getLocation(), 1, 0, 0, 0, 0);
+				world.spawnParticle(Particle.FLAME, DisplayUtils.vector3ftoLocation(world, getCenter()), 1, 0, 0, 0, 0);
+				for (Vector3f vec : getVertices())
+					world.spawnParticle(Particle.CRIT, DisplayUtils.vector3ftoLocation(world, vec), 1, 0, 0, 0, 0);
+			}}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
+		}
 	}
 	
 }

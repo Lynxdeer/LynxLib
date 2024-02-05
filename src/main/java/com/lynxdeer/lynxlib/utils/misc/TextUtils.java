@@ -10,7 +10,7 @@ import java.time.Duration;
 
 public class TextUtils {
 	
-	public String componentToString(Component component) {
+	public static String componentToString(Component component) {
 		return ((TextComponent) component).content();
 	}
 	
