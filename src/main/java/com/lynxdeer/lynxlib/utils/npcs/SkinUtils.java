@@ -45,8 +45,8 @@ public class SkinUtils {
 			Field field = meta.getClass().getDeclaredField("profile");
 			field.setAccessible(true);
 			field.set(meta, profile);
-		} catch (Exception var7) {
-			var7.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		item.setItemMeta(meta);

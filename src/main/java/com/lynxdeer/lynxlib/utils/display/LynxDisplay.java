@@ -3,12 +3,14 @@ package com.lynxdeer.lynxlib.utils.display;
 import com.lynxdeer.lynxlib.LL;
 import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.display.enums.EaseType;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.joml.Matrix4f;
@@ -28,6 +30,8 @@ public class LynxDisplay {
 	public Quaternionf afterRotation; // (Left rotation)
 	public Vector3f scale;
 	public Quaternionf beforeRotation; // (Right Rotation)
+	public int transformationStartingTick;
+	public int transformationLength;
 	
 	public HashMap<Transformation, Integer> transformationQueue = new HashMap<>();
 	
@@ -57,16 +61,30 @@ public class LynxDisplay {
 		return baseLocation.clone().add(transform.x, transform.y, transform.z);
 	}
 	
-	public Vector3f getCenter() {
-		
-		return DisplayUtils.vectortovector3f(getLocation().toVector()).add(DisplayUtils.convertQuaternionToVector(this.afterRotation));
-		
-	}
+//	public Vector3f getCenter() {
+//
+//		return DisplayUtils.vectortovector3f(getLocation().toVector()).add(DisplayUtils.convertQuaternionToVector(this.afterRotation));
+//
+//	}
 	
 	public Vector3f[] getVertices() {
-		return new Vector3f[] {
-		
+		Vector3f[] vertices = {
+				new Vector3f(0.5f, 0.5f, 0.5f),
+				new Vector3f(-0.5f, 0.5f, 0.5f),
+				new Vector3f(-0.5f, -0.5f, 0.5f),
+				new Vector3f(0.5f, -0.5f, 0.5f),
+				new Vector3f(0.5f, 0.5f, -0.5f),
+				new Vector3f(-0.5f, 0.5f, -0.5f),
+				new Vector3f(-0.5f, -0.5f, -0.5f),
+				new Vector3f(0.5f, -0.5f, -0.5f)
 		};
+		Matrix4f rotationMatrix = new Matrix4f();
+		this.afterRotation.get(rotationMatrix);
+		
+		for (Vector3f vertex : vertices)
+			rotationMatrix.transformPosition(vertex);
+		
+		return vertices;
 	}
 	
 	public void teleport(Location loc) {
@@ -92,7 +110,6 @@ public class LynxDisplay {
 		
 		
 		this.transform.add(vector);
-		this.display.setTransformation(new Transformation(transform, afterRotation, scale, beforeRotation));
 	}
 	
 	public void rotate(float x, float y, float z, double duration) {
@@ -100,30 +117,42 @@ public class LynxDisplay {
 	}
 	
 	public void rotate(Quaternionf quaternion, double duration) { // ADD EASING LATER!
+		
+		int ticks = LL.millisToTicks((int) (duration * 1000));
 		this.display.setInterpolationDelay(0);
-		this.display.setInterpolationDuration(LL.millisToTicks((int) duration * 1000));
+		this.display.setInterpolationDuration(ticks);
 		
 		this.beforeRotation = new Quaternionf(afterRotation);
 		this.afterRotation.add(quaternion);
 		this.afterRotation.normalize();
+		
+		this.transformationStartingTick = Bukkit.getCurrentTick();
+		this.transformationLength = ticks;
+	}
+	
+	public void update() {
+		this.transformationStartingTick = Bukkit.getCurrentTick();
 		this.display.setTransformation(new Transformation(transform, afterRotation, scale, beforeRotation));
 	}
 	
 	
 	
 	private boolean debugMode = false;
+	private BukkitTask debugRunnable = null;
 	public void debugMode(boolean debug) {
 		debugMode = debug;
-		if (debugMode) {
-			new BukkitRunnable() {@Override public void run() {
+		if (debugMode && debugRunnable == null) {
+			debugRunnable = new BukkitRunnable() {@Override public void run() {
 				if (!debugMode) this.cancel();
 				World world = baseLocation.getWorld();
 				world.spawnParticle(Particle.END_ROD, baseLocation, 1, 0, 0, 0, 0);
-				world.spawnParticle(Particle.END_ROD, getLocation(), 1, 0, 0, 0, 0);
-				world.spawnParticle(Particle.FLAME, DisplayUtils.vector3ftoLocation(world, getCenter()), 1, 0, 0, 0, 0);
-				for (Vector3f vec : getVertices())
-					world.spawnParticle(Particle.CRIT, DisplayUtils.vector3ftoLocation(world, vec), 1, 0, 0, 0, 0);
+				world.spawnParticle(Particle.FLAME, getLocation(), 1, 0, 0, 0, 0);
+				for (Vector3f vertex : getVertices())
+					world.spawnParticle(Particle.CRIT, DisplayUtils.vector3ftoLocation(world, vertex).add(getLocation()), 1, 0, 0, 0, 0);
 			}}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
+		} else if (!debugMode && debugRunnable != null) {
+			debugRunnable.cancel();
+			debugRunnable = null;
 		}
 	}
 	

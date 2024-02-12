@@ -2,7 +2,7 @@
   <artifact type="jar" name="LynxLib:jar">
     <output-path>$PROJECT_DIR$/out/</output-path>
     <root id="archive" name="LynxLib.jar">
-      <element id="module-output" name="CGithub.LynxLib.main" />
+      <element id="module-output" name="com.lynxdeer.LynxLib.main" />
     </root>
   </artifact>
 </component>

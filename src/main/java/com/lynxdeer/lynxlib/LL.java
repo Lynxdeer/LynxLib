@@ -10,6 +10,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -22,6 +23,9 @@ public class LL {
 		if (s instanceof Vector) s = "x" + ((Vector) s).getX() + " y" + ((Vector) s).getY() + " z" + ((Vector) s).getZ();
 		if (s instanceof Vector3f) s = "x" + ((Vector3f) s).x + " y" + ((Vector3f) s).y + " z" + ((Vector3f) s).z;
 		if (s instanceof Quaternionf) s = "x" + ((Quaternionf) s).x + " y" + ((Quaternionf) s).y + " z" + ((Quaternionf) s).z  + " w" + ((Quaternionf) s).w;
+		if (s instanceof ArrayList<?> a)  { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
+		if (s instanceof List<?> a)       { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
+		if (s instanceof Collection<?> a) { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
 		for (Player p : Bukkit.getOnlinePlayers())
 			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
 				p.sendMessage(Component.text("[Debug] " + s).hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!"))));
