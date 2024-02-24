@@ -4,9 +4,11 @@ import com.lynxdeer.lynxlib.LL;
 import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
 import com.lynxdeer.lynxlib.utils.display.LynxDisplay;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
+import org.bukkit.entity.Display;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Matrix3f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -31,6 +33,7 @@ public class PhysicsObject extends LynxDisplay {
 		super(loc, item);
 		
 		this.mass = new Matrix3f(mass, mass, mass, mass, mass, mass, mass, mass, mass); // TODO! Do some actual mass matrix calculations
+		this.transformationTime = 1;
 		this.velocity = new Vector3f(0, 0, 0);
 		this.torque = new Vector3f(0, 0, 0);
 		
@@ -43,29 +46,51 @@ public class PhysicsObject extends LynxDisplay {
 	}
 	
 	public void tick() {
+		
 		for (int i = 0; i < PhysicsUtils.collisionAccuracy; i++) {
 			
-			velocity.sub(0, gravityRate/PhysicsUtils.collisionAccuracy, 0);
-			beforeRotation = new Quaternionf(afterRotation); // I hope I don't have to clone the quaternionf. That would be stupid asf, I doubt I do, but it needs testing.
-			afterRotation.add( new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z));
+			velocity.sub(0, gravityRate, 0); // TODO: simplify this equation somewhere by doing it beforehand
 			
-			move(velocity, LynxLib.tickRateMillis);
-			rotate(new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z), LynxLib.tickRateMillis);
+			move(velocity);
+//			LL.debug(velocity);
+			rotate(new Quaternionf().rotateXYZ(torque.x, torque.y, torque.z));
 			
-			checkCollisions();
+			if (isCollidingWithABlockEfficient()) {
+				move(new Vector3f(velocity).div(-PhysicsUtils.collisionAccuracy));
+				velocity.mul(-0.6f);
+			}
+			
+			if (this.debugMode)
+				updateDebugDisplay();
+			
 		}
-		LL.debug(velocity);
-		LL.debug(torque);
-		LL.debug(beforeRotation);
-		LL.debug(afterRotation);
+		update();
+//		LL.debug(velocity);
+//		LL.debug(torque);
+//		LL.debug(beforeRotation);
+//		LL.debug(afterRotation);
 		if (this.getLocation().getY() < -128) {
 			this.display.remove();
 			DisplayUtils.physicsObjects.remove(this);
 		}
 	}
 	
-	public void checkCollisions() {
-	
+	public TextDisplay debugDisplay = null;
+	public void updateDebugDisplay() {
+		if (debugDisplay == null) {
+			this.debugDisplay = baseLocation.getWorld().spawn(getLocation(), TextDisplay.class, t -> {
+				t.setBillboard(Display.Billboard.CENTER);
+				t.setAlignment(TextDisplay.TextAlignment.LEFT);
+				t.setSeeThrough(true);
+			});
+		} else {
+			Location loc = getLocation();
+			this.debugDisplay.text(
+//					Component.text("§7Position: §c" + loc.getX() + "§8, §a" + loc.getY() + "§8, §9" + loc.getZ()).append(Component.newline()).append(
+					Component.text("§7Velocity: §c" + velocity.x + "§8, §a" + velocity.y + "§8, §9" + velocity.z).append(Component.newline()).append(
+					Component.text("§7Torque: §c" + torque.x + "§8, §a" + torque.y + "§8, §9" + torque.z))
+			);
+		}
 	}
 	
 	public void applySimpleVelocity(Vector3f velocity) {
@@ -73,9 +98,11 @@ public class PhysicsObject extends LynxDisplay {
 	}
 	
 	public void applyVelocity(float power, Location source) {
-		Vector3f dir = DisplayUtils.vectortovector3f(source.subtract(getLocation()).toVector());
+		Vector3f dir = DisplayUtils.vectortovector3f(getLocation().subtract(source).toVector());
 		velocity.add( dir.normalize().mul(power) );
-		torque.add(PhysicsUtils.calculateTorque(velocity, dir, mass));
+		
+		Vector3f offset = DisplayUtils.vectortovector3f(getLocation().subtract(source).toVector());
+		torque.add(PhysicsUtils.calculateTorque(offset, new Vector3f(offset).mul(power) ));
 	}
 	
 }

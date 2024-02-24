@@ -1,7 +1,9 @@
 package com.lynxdeer.lynxlib.utils.classes;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
 public class Ray {
@@ -20,6 +22,11 @@ public class Ray {
 		return check(loc, new Vector(1, 1, 1));
 	}
 	
+	public boolean check(World world, BoundingBox boundingBox) {
+		return check(new Location(world, boundingBox.getCenterX(), boundingBox.getCenterY(), boundingBox.getCenterZ()),
+					 new Vector(boundingBox.getWidthX(), boundingBox.getHeight(), boundingBox.getWidthZ()));
+	}
+	
 	
 	// TODO: Test whether this method actually works, or whether internet man was incorrect!
 	public boolean check(Location loc, Vector scaling) {
@@ -27,11 +34,11 @@ public class Ray {
 		double tx1 = (loc.getX() - this.origin.getX()) * this.direction.getX();
 		double tx2 = (loc.getX() + scaling.getX() - this.origin.getX()) * this.direction.getX();
 		
-		double ty1 = (loc.getX() - this.origin.getY()) * this.direction.getY();
-		double ty2 = (loc.getX() + scaling.getY() - this.origin.getY()) * this.direction.getY();
+		double ty1 = (loc.getY() - this.origin.getY()) * this.direction.getY();
+		double ty2 = (loc.getY() + scaling.getY() - this.origin.getY()) * this.direction.getY();
 		
-		double tz1 = (loc.getX() - this.origin.getZ()) * this.direction.getZ();
-		double tz2 = (loc.getX() + scaling.getZ() - this.origin.getZ()) * this.direction.getZ();
+		double tz1 = (loc.getZ() - this.origin.getZ()) * this.direction.getZ();
+		double tz2 = (loc.getZ() + scaling.getZ() - this.origin.getZ()) * this.direction.getZ();
 		
 		double min = Math.min(tx1, tx2);
 		double max = Math.max(tx1, tx2);

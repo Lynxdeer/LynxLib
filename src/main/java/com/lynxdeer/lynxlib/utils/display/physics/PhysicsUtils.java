@@ -14,16 +14,16 @@ public class PhysicsUtils {
 	
 	public static int collisionAccuracy = 3;
 	
-	// This method was generated using Bard.
-	public static Vector3f calculateTorque(Vector3f velocity, Vector3f appliedPoint, Matrix3f inverseInertia) {
-		// 1. Cross product with the velocity and a vector representing the offset from the origin
-		Vector3f torque = new Vector3f();
-		torque.cross(velocity, appliedPoint);
+	public static Vector3f calculateTorque(Vector3f distance, Vector3f force) {
 		
-		// 2. Multiply by the inverse inertia tensor to account for the object's resistance to rotation
-		torque.mul(inverseInertia);
-		
-		return torque;
+		// Surely it's more complicated than this.
+		// I honestly have 0 idea, torque is so confusing
+		return new Vector3f(distance).cross(force);
+	}
+	
+	public static void setCollisionAccuracy(int accuracy) {
+		collisionAccuracy = accuracy;
+		PhysicsObject.gravityRate = 9.8f/LynxLib.tickRate/collisionAccuracy;
 	}
 	
 	public static void startPhysicsRunnable() {
@@ -31,10 +31,13 @@ public class PhysicsUtils {
 			physicsRunnable = new BukkitRunnable() {
 				@Override
 				public void run() {
-				for (PhysicsObject object : DisplayUtils.physicsObjects) {
-					if (object != null)
-						object.tick();
-				}
+				try {
+					
+					for (PhysicsObject object : DisplayUtils.physicsObjects)
+						if (object != null)
+							object.tick();
+					
+				} catch (Exception ignored) {}
 			}}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
 		}
 	}

@@ -3,6 +3,8 @@ package com.lynxdeer.lynxlib.utils.items;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +22,7 @@ public class ItemBuilder {
 	public List<Component> lore;
 	public List<ItemFlag> itemFlags = new ArrayList<>();
 	public boolean unbreakable;
+	public boolean removeAttackDelay = false;
 	public int[] color = null;
 	public HashMap<Enchantment, Integer> enchantments = new HashMap<>();
 	public Set<Material> canPlace;
@@ -46,6 +49,16 @@ public class ItemBuilder {
 		List<Component> convertedComponents = new ArrayList<>();
 		List.of(lore).forEach(line -> convertedComponents.add(Component.text(line)));
 		this.lore = convertedComponents;
+		return this;
+	}
+	
+	public ItemBuilder removeAttackDelay() {
+		removeAttackDelay = true;
+		return this;
+	}
+	
+	public ItemBuilder lore(List<Component> lore) {
+		this.lore = lore;
 		return this;
 	}
 	
@@ -95,6 +108,7 @@ public class ItemBuilder {
 		
 		if (this.canDestroy != null) meta.setCanDestroy(this.canDestroy);
 		if   (this.canPlace != null) meta.setCanPlaceOn(this.canPlace);
+		if  (this.removeAttackDelay) meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "noDelay", 40, AttributeModifier.Operation.ADD_NUMBER));
 		
 		meta.displayName(name);
 		if (customModelData > 0) meta.setCustomModelData(customModelData);
