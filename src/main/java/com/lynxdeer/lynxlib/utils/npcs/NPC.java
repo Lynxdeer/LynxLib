@@ -56,6 +56,7 @@ public class NPC {
 		location = loc;
 		size = scale;
 		
+		
 		resetRotations();
 		
 		base = loc.getWorld().spawn(loc, ItemDisplay.class, i -> {});
