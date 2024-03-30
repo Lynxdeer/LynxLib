@@ -1,0 +1,13 @@
+name: LynxLib
+version: '1.02'
+main: com.lynxdeer.lynxlib.LynxLib
+api-version: '1.19'
+authors: [Lynxdeer]
+description: General Library for all of lynx's stuff.
+load: STARTUP
+softdepend: [ ProtocolLib ]
+commands:
+  lynxlib:
+    description: Various lynxlib admin commands.
+    aliases: ll
+    permission: op

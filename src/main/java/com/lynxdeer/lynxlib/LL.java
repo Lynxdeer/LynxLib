@@ -1,35 +1,55 @@
 package com.lynxdeer.lynxlib;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class LL {
 	
 	// General methods I use in every project anyway.
 	
-	public static void debug(Object s) {
-		if (s instanceof Location) s = "x" + ((Location) s).getX() + " y" + ((Location) s).getY() + " z" + ((Location) s).getZ();
-		if (s instanceof Vector) s = "x" + ((Vector) s).getX() + " y" + ((Vector) s).getY() + " z" + ((Vector) s).getZ();
-		if (s instanceof Vector3f) s = "x" + ((Vector3f) s).x + " y" + ((Vector3f) s).y + " z" + ((Vector3f) s).z;
-		if (s instanceof Quaternionf) s = "x" + ((Quaternionf) s).x + " y" + ((Quaternionf) s).y + " z" + ((Quaternionf) s).z  + " w" + ((Quaternionf) s).w;
-		if (s instanceof ArrayList<?> a)  { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
-		if (s instanceof List<?> a)       { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
-		if (s instanceof Collection<?> a) { s = "["; for (Object o : a) s += o.toString(); s+="]"; }
+	public static void debug(String s) {
 		for (Player p : Bukkit.getOnlinePlayers())
 			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
-				p.sendMessage(Component.text("[Debug] " + s).hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!"))));
+				p.sendMessage(Component
+						.text("[Debug] " + s)
+						.hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!\n§fClick to copy!")))
+						.clickEvent(ClickEvent.copyToClipboard(s))
+				);
 		Bukkit.getLogger().log(Level.INFO, "[Debug] " + s);
+	}
+	
+	// Inspired by Geode's logging system, which is a lot better than just taking an object and changing it to a string.
+	public static void debug(String format, Object... args) {
+		for (Object s : args) {
+			String fs;
+			if (s == null) fs = "null";
+			else if (s instanceof Location) fs = "x:" + ((Location) s).getX() + ", y:" + ((Location) s).getY() + ", z:" + ((Location) s).getZ();
+			else if (s instanceof Vector) fs = "x:" + ((Vector) s).getX() + ", y:" + ((Vector) s).getY() + ", z:" + ((Vector) s).getZ();
+			else if (s instanceof Vector3f) fs = "x:" + ((Vector3f) s).x + ", y:" + ((Vector3f) s).y + ", z:" + ((Vector3f) s).z;
+			else if (s instanceof Quaternionf) fs = "x:" + ((Quaternionf) s).x + ", y:" + ((Quaternionf) s).y + ", z:" + ((Quaternionf) s).z  + ", w:" + ((Quaternionf) s).w;
+			else if (s instanceof AxisAngle4f) fs = "x:" + ((AxisAngle4f) s).x + ", y:" + ((AxisAngle4f) s).y + ", z:" + ((AxisAngle4f) s).z  + ", angle:" + ((AxisAngle4f) s).angle;
+			else if (s instanceof Collection<?> a) { fs = "["; for (Object o : a) fs += o.toString() + ", "; fs+="]"; }
+			else if (s instanceof Map<?, ?> a) { fs = "["; for (Map.Entry<?, ?> o : a.entrySet()) fs += "(" + o.getKey().toString() + ", " + o.getValue().toString() + ") "; fs+="]"; }
+			else fs = s.toString();
+			
+			if (format.contains("{}")) format = format.replaceFirst("\\{}", fs);
+		}
+		
+		debug(format);
 	}
 	
 	public static List<String> tabComplete(List<?> s, String t) {
