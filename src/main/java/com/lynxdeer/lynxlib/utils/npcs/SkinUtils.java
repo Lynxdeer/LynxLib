@@ -61,11 +61,11 @@ public class SkinUtils {
 	
 	public static Skin getSkin(Player p) {
 		
-		LL.debug("ran getSkin");
+		LL.debugFine("ran getSkin");
 		for (Skin skin : Skin.skins) {
-			LL.debug("Looking through skin {}", skin.id);
+			LL.debugFine("Looking through skin {}", skin.id);
 			if (skin.ready && skin.readyTextures != null && skin.readyTextures.get(BodyPartType.HEAD).equals(getEncodedSkin(p))) {
-				LL.debug("found ready skin");
+				LL.debugFine("found ready skin");
 				return skin;
 			}
 		}

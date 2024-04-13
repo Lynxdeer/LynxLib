@@ -1,11 +1,9 @@
 package com.lynxdeer.lynxlib.utils.display.physics;
 
-import com.lynxdeer.lynxlib.LL;
 import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
 public class PhysicsUtils {
@@ -38,7 +36,7 @@ public class PhysicsUtils {
 							object.tick();
 					
 				} catch (Exception ignored) {}
-			}}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
+			}}.runTaskTimer(LynxLib.getLLPlugin(), 1L, 1L);
 		}
 	}
 	

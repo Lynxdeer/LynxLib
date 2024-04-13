@@ -2,6 +2,8 @@ package com.lynxdeer.lynxlib.utils.misc;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -74,6 +76,13 @@ public class TextUtils {
 	
 	public static Component wrapNewLines(Component original) {
 		return wrapNewLines(original, 1);
+	}
+	
+	public static Component getColoredComponent(String text, TextColor color) {
+		return Component.text(text).color(color).decoration(TextDecoration.ITALIC, false);
+	}
+	public static Component getColoredBoldedComponent(String text, TextColor color) {
+		return Component.text(text).color(color).decoration(TextDecoration.ITALIC, false).decoration(TextDecoration.BOLD, true);
 	}
 	
 }

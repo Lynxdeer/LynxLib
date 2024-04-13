@@ -60,13 +60,13 @@ public class Skin {
 	}
 	
 	public static void loadSkins() {
-		LL.debug("loading skins");
+		LL.debugFine("loading skins");
 		try {
 			
 			int highestId = -1;
 			for (File f : Files.walk(Paths.get("plugins/LynxLib/skins/")).filter(Files::isRegularFile).map(p -> p.toFile()).toArray(File[]::new)) {
 				
-				LL.debug("found a file");
+				LL.debugFine("found a file");
 				
 				Map<BodyPartType, String> textures = new HashMap<>();
 				
@@ -77,7 +77,7 @@ public class Skin {
 				
 				for (String s : Files.readAllLines(f.toPath())) {
 					String[] split = s.split(":::");
-					LL.debug(BodyPartType.valueOf(split[0]).name());
+					LL.debugFine(BodyPartType.valueOf(split[0]).name());
 					textures.put(BodyPartType.valueOf(split[0]), split[1]);
 				}
 				

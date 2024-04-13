@@ -3,6 +3,7 @@ package com.lynxdeer.lynxlib.utils.items;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
@@ -10,6 +11,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
@@ -28,6 +32,8 @@ public class ItemBuilder {
 	public Set<Material> canPlace;
 	public Set<Material> canDestroy;
 	
+	public JavaPlugin creatingPlugin;
+	public HashMap<String, Object> persistentDataContainer = new HashMap<>();
 	
 	
 	public ItemBuilder(Material material) {
@@ -81,6 +87,15 @@ public class ItemBuilder {
 		return this;
 	}
 	
+	/**
+	 * Persistent data container.
+	 */
+	public ItemBuilder pdc(JavaPlugin plugin, String key, Object value) {
+		creatingPlugin = plugin;
+		persistentDataContainer.put(key, value);
+		return this;
+	}
+	
 	
 	
 	public ItemBuilder amount(int amount) {
@@ -118,6 +133,24 @@ public class ItemBuilder {
 			meta.addItemFlags(flag);
 		for (Map.Entry<Enchantment, Integer> enchantment : enchantments.entrySet())
 			meta.addEnchant(enchantment.getKey(), enchantment.getValue(), true);
+		for (Map.Entry<String, Object> persistentDataValue : persistentDataContainer.entrySet()) {
+			String key = persistentDataValue.getKey();
+			Object value = persistentDataValue.getValue();
+			
+			if (value instanceof String v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.STRING, v);
+			else if (value instanceof Integer v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.INTEGER, v);
+			else if (value instanceof Float v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.FLOAT, v);
+			else if (value instanceof Long v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.LONG, v);
+			else if (value instanceof Byte v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.BYTE, v);
+			else if (value instanceof byte[] v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.BYTE_ARRAY, v);
+			else if (value instanceof int[] v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.INTEGER_ARRAY, v);
+			else if (value instanceof long[] v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.LONG_ARRAY, v);
+			else if (value instanceof Boolean v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.BOOLEAN, v);
+			else if (value instanceof Double v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.DOUBLE, v);
+			else if (value instanceof Short v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.SHORT, v);
+			else if (value instanceof PersistentDataContainer v) meta.getPersistentDataContainer().set(new NamespacedKey(creatingPlugin, key), PersistentDataType.TAG_CONTAINER, v);
+			
+		}
 		
 		if (color != null && meta instanceof LeatherArmorMeta lam) {
 			lam.setColor(Color.fromRGB( color[0], color[1], color[2] ));

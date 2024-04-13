@@ -10,7 +10,6 @@ import com.comphenix.protocol.wrappers.WrappedDataValue;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.google.common.collect.Lists;
 import com.lynxdeer.lynxlib.LynxLib;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -27,7 +26,7 @@ public class Glowing {
 	
 	public static void registerGlowPacketHandler() {
 		ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-		manager.addPacketListener(new PacketAdapter(LynxLib.getCurrentPlugin(), PacketType.Play.Server.ENTITY_METADATA) {
+		manager.addPacketListener(new PacketAdapter(LynxLib.getLLPlugin(), PacketType.Play.Server.ENTITY_METADATA) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
 				

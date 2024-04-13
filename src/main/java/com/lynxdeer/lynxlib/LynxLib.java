@@ -1,20 +1,19 @@
 package com.lynxdeer.lynxlib;
 
 import com.lynxdeer.lynxlib.commands.LynxLibCommand;
+import com.lynxdeer.lynxlib.events.LLEvents;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
+import com.lynxdeer.lynxlib.utils.items.PDCUtils;
 import com.lynxdeer.lynxlib.utils.npcs.Skin;
 import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mineskin.MineskinClient;
 
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 
 public final class LynxLib extends JavaPlugin {
 	
@@ -41,10 +40,12 @@ public final class LynxLib extends JavaPlugin {
 		
 		getCommand("lynxlib").setExecutor(new LynxLibCommand());
 		
+		
+		Bukkit.getPluginManager().registerEvents(new LLEvents(), this);
 	}
 	
 	
-	public static JavaPlugin getCurrentPlugin() {
+	public static JavaPlugin getLLPlugin() {
 		return currentPlugin;
 	}
 	

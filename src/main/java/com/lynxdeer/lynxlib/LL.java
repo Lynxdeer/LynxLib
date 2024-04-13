@@ -1,5 +1,7 @@
 package com.lynxdeer.lynxlib;
 
+import com.lynxdeer.lynxlib.commands.LynxLibCommand;
+import com.lynxdeer.lynxlib.events.LLEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 public class LL {
@@ -23,17 +26,38 @@ public class LL {
 	
 	public static void debug(String s) {
 		for (Player p : Bukkit.getOnlinePlayers())
-			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
+			if (p.isOp() && (!p.hasMetadata("debug") || p.getMetadata("debug").get(0).asBoolean()))
 				p.sendMessage(Component
 						.text("[Debug] " + s)
 						.hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib debug §eto toggle debug messages!\n§fClick to copy!")))
-						.clickEvent(ClickEvent.copyToClipboard(s))
-				);
-		Bukkit.getLogger().log(Level.INFO, "[Debug] " + s);
+						.clickEvent(ClickEvent.copyToClipboard(s)));
+		if (LynxLibCommand.consoleDebug)
+			Bukkit.getLogger().log(Level.INFO, "[Debug] " + s);
+	}
+	
+	public static void debugFine(String s) {
+		for (Player p : Bukkit.getOnlinePlayers())
+			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))
+				p.sendMessage(Component
+						.text("§7§o[Debug] " + s)
+						.hoverEvent(HoverEvent.showText(Component.text("§eDo §6/lynxlib fine §eto toggle fine debug messages!\n§fClick to copy!")))
+						.clickEvent(ClickEvent.copyToClipboard(s)));
+		if (LynxLibCommand.consoleFineDebug)
+			Bukkit.getLogger().log(Level.INFO, "[Fine] " + s);
 	}
 	
 	// Inspired by Geode's logging system, which is a lot better than just taking an object and changing it to a string.
 	public static void debug(String format, Object... args) {
+		debug(debugBuilder(format, args));
+	}
+	public static void debugFine(String format, Object... args) {
+		debugFine(debugBuilder(format, args));
+	}
+	
+	public static void debug(Object s) { debug("{}", s);}
+	public static void debugFine(Object s) { debugFine("{}", s);}
+	
+	public static String debugBuilder(String format, Object... args) {
 		for (Object s : args) {
 			String fs;
 			if (s == null) fs = "null";
@@ -48,8 +72,11 @@ public class LL {
 			
 			if (format.contains("{}")) format = format.replaceFirst("\\{}", fs);
 		}
-		
-		debug(format);
+		return format;
+	}
+	
+	public static void bindDebugTool(int id, Consumer<Player> runnable) {
+		LLEvents.debugToolFunctions[id] = runnable;
 	}
 	
 	public static List<String> tabComplete(List<?> s, String t) {

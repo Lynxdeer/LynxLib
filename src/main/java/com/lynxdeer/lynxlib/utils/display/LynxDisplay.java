@@ -202,7 +202,7 @@ public class LynxDisplay {
 				world.spawnParticle(Particle.FLAME, getLocation(), 1, 0, 0, 0, 0);
 				for (Vector3f vertex : getVertices())
 					world.spawnParticle(Particle.CRIT, DisplayUtils.vector3ftoLocation(world, vertex).add(getLocation()), 1, 0, 0, 0, 0);
-			}}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
+			}}.runTaskTimer(LynxLib.getLLPlugin(), 1L, 1L);
 		} else if (!debugMode && debugRunnable != null) {
 			debugRunnable.cancel();
 			debugRunnable = null;

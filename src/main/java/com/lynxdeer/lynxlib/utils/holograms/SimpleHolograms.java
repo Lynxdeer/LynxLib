@@ -39,7 +39,7 @@ public class SimpleHolograms {
 		});
 		new BukkitRunnable() {@Override public void run() {
 			armorStand.remove();
-		}}.runTaskLater(LynxLib.getCurrentPlugin(), time);
+		}}.runTaskLater(LynxLib.getLLPlugin(), time);
 		return armorStand;
 	}
 	
@@ -61,7 +61,7 @@ public class SimpleHolograms {
 					this.cancel();
 				}
 			}
-		}.runTaskTimer(LynxLib.getCurrentPlugin(), 1L, 1L);
+		}.runTaskTimer(LynxLib.getLLPlugin(), 1L, 1L);
 	}
 	
 }
