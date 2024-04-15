@@ -115,7 +115,7 @@ public class PDCUtils {
 	public static <T extends Number> T addPDC(String key, ItemStack item, T count) { return addPDC(LynxLib.getLLPlugin(), key, item, count); }
 	public static <T extends Number> T addPDC(String key, Entity entity, T count) { return addPDC(LynxLib.getLLPlugin(), key, entity, count); }
 	
-	public static void setPDC(String key, ItemStack item, Object value) { setPDC(LynxLib.getLLPlugin(), key, item, count); }
+	public static void setPDC(String key, ItemStack item, Object value) { setPDC(LynxLib.getLLPlugin(), key, item, value); }
 	public static void setPDC(String key, Entity entity, Object value) { setPDC(LynxLib.getLLPlugin(), key, entity, value); }
 	
 }
