@@ -1,5 +1,6 @@
 package com.lynxdeer.lynxlib.utils.items;
 
+import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.misc.ClassUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
@@ -14,20 +15,21 @@ public class PDCUtils {
 	 * Null-safe version of PersistentDataContainer#get.
 	 */
 	public static <T, Z> T getPDC(JavaPlugin plugin, String key, ItemStack item, PersistentDataType<Z, T> type) {
-		
-		return getDefaultingPDC(plugin, key, item, type, ClassUtils.nullSafeVersionOfType(type.getComplexType()));
-		
+		return getPDC(plugin, key, item.getItemMeta().getPersistentDataContainer(), type);
 	}
-	
+	/**
+	 * Null-safe version of PersistentDataContainer#get.
+	 */
 	public static <T, Z> T getPDC(JavaPlugin plugin, String key, Entity entity, PersistentDataType<Z, T> type) {
-		
-		return getDefaultingPDC(plugin, key, entity, type, ClassUtils.nullSafeVersionOfType(type.getComplexType()));
-		
+		return getPDC(plugin, key, entity.getPersistentDataContainer(), type);
+	}
+	private static <T, Z> T getPDC(JavaPlugin plugin, String key, PersistentDataContainer container, PersistentDataType<Z, T> type) {
+		return getDefaultingPDC(plugin, key, container, type, ClassUtils.nullSafeVersionOfType(type.getComplexType()));
 	}
 	
-	public static <T extends Number> T addPDC(JavaPlugin plugin, String key, Entity entity, T count) {
+	private static <T extends Number> T addPDC(JavaPlugin plugin, String key, PersistentDataContainer container, T count) {
 		Number newValue = 0;
-		Number oldValue = getPDC(plugin, key, entity, PersistentDataType.INTEGER);
+		Number oldValue = getPDC(plugin, key, container, PersistentDataType.INTEGER);
 		
 		if (count instanceof Integer) newValue = oldValue.intValue() + count.intValue();
 		else if (count instanceof Short) newValue = oldValue.shortValue() + count.shortValue();
@@ -35,14 +37,35 @@ public class PDCUtils {
 		else if (count instanceof Float) newValue = oldValue.floatValue() + count.floatValue();
 		else if (count instanceof Double) newValue = oldValue.doubleValue() + count.doubleValue();
 		
-		setPDC(plugin, key, entity, newValue);
+		setPDC(plugin, key, container, newValue);
 		return (T) newValue;
 	}
 	
+	public static <T extends Number> T addPDC(JavaPlugin plugin, String key, Entity entity, T count) {
+		if (entity != null && !entity.isDead())
+			return addPDC(plugin, key, entity.getPersistentDataContainer(), count);
+		return (T) ClassUtils.nullSafeVersionOfType(count.getClass());
+	}
+	public static <T extends Number> T addPDC(JavaPlugin plugin, String key, ItemStack item, T count) {
+		if (item != null && item.hasItemMeta())
+			return addPDC(plugin, key, item.getItemMeta().getPersistentDataContainer(), count);
+		return (T) ClassUtils.nullSafeVersionOfType(count.getClass());
+	}
+	
+	/**
+	 * Things might mess up if the item is new and has no meta, but that's a problem for future me :D
+	 */
+	public static void setPDC(JavaPlugin plugin, String key, ItemStack item, Object value) {
+		if (item != null && item.hasItemMeta())
+			setPDC(plugin, key, item.getItemMeta().getPersistentDataContainer(), value);
+	}
 	
 	public static void setPDC(JavaPlugin plugin, String key, Entity entity, Object value) {
-		
-		PersistentDataContainer dataContainer = entity.getPersistentDataContainer();
+		if (entity != null && !entity.isDead())
+			setPDC(plugin, key, entity.getPersistentDataContainer(), value);
+	}
+	
+	private static void setPDC(JavaPlugin plugin, String key, PersistentDataContainer dataContainer, Object value) {
 		NamespacedKey namespacedKey = new NamespacedKey(plugin, key);
 		
 		if (value instanceof String) dataContainer.set(namespacedKey, PersistentDataType.STRING, (String) value);
@@ -65,16 +88,8 @@ public class PDCUtils {
 	 * @param defaultValue The default value that should be returned if the item does not have the pdc key.
 	 */
 	public static <T, Z> T getDefaultingPDC(JavaPlugin plugin, String key, ItemStack item, PersistentDataType<Z, T> type, Object defaultValue) {
-		
-		if (item == null || !item.hasItemMeta()) {
-			return type.getComplexType().cast(defaultValue);
-		}
-		
-		PersistentDataContainer container = item.getItemMeta().getPersistentDataContainer();
-		NamespacedKey namespacedKey = new NamespacedKey(plugin, key);
-		
-		return container.has(namespacedKey) ? container.get(namespacedKey, type) : type.getComplexType().cast(defaultValue);
-		
+		if (item == null || !item.hasItemMeta()) return type.getComplexType().cast(defaultValue);
+		return getDefaultingPDC(plugin, key, item.getItemMeta().getPersistentDataContainer(), type, defaultValue);
 	}
 	
 	/**
@@ -82,16 +97,25 @@ public class PDCUtils {
 	 * @param defaultValue The default value that should be returned if the item does not have the pdc key.
 	 */
 	public static <T, Z> T getDefaultingPDC(JavaPlugin plugin, String key, Entity entity, PersistentDataType<Z, T> type, Object defaultValue) {
-		
-		if (entity == null || entity.isDead()) {
-			return type.getComplexType().cast(defaultValue);
-		}
-		
-		PersistentDataContainer container = entity.getPersistentDataContainer();
+		if (entity == null || entity.isDead()) return type.getComplexType().cast(defaultValue);
+		return getDefaultingPDC(plugin, key, entity.getPersistentDataContainer(), type, defaultValue);
+	}
+	
+	private static <T, Z> T getDefaultingPDC(JavaPlugin plugin, String key, PersistentDataContainer container, PersistentDataType<Z, T> type, Object defaultValue) {
 		NamespacedKey namespacedKey = new NamespacedKey(plugin, key);
-		
 		return container.has(namespacedKey) ? container.get(namespacedKey, type) : type.getComplexType().cast(defaultValue);
 		
 	}
+	
+	/*
+		The below methods use the LynxLib plugin as a container for PDC.
+	 */
+	
+	
+	public static <T extends Number> T addPDC(String key, ItemStack item, T count) { return addPDC(LynxLib.getLLPlugin(), key, item, count); }
+	public static <T extends Number> T addPDC(String key, Entity entity, T count) { return addPDC(LynxLib.getLLPlugin(), key, entity, count); }
+	
+	public static void setPDC(String key, ItemStack item, Object value) { setPDC(LynxLib.getLLPlugin(), key, item, count); }
+	public static void setPDC(String key, Entity entity, Object value) { setPDC(LynxLib.getLLPlugin(), key, entity, value); }
 	
 }

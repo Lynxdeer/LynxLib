@@ -11,3 +11,9 @@ commands:
     description: Various lynxlib admin commands.
     aliases: ll
     permission: op
+    permission-message: I've travelled the whole world. Since I turned 18, I've visited almost every place on the planet. Every landmark, every jungle, every forest. And in all my travels, I could not find... your permission for this command.
+  worlds:
+    description: Worlds command.
+    aliases: world
+    permission: op
+    permission-message: I've travelled the whole world. Since I turned 18, I've visited almost every place on the planet. Every landmark, every jungle, every forest. And in all my travels, I could not find... your permission for this command.

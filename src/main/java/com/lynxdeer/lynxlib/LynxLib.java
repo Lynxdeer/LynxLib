@@ -1,6 +1,7 @@
 package com.lynxdeer.lynxlib;
 
 import com.lynxdeer.lynxlib.commands.LynxLibCommand;
+import com.lynxdeer.lynxlib.commands.WorldsCommand;
 import com.lynxdeer.lynxlib.events.LLEvents;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
@@ -39,6 +40,8 @@ public final class LynxLib extends JavaPlugin {
 		Skin.loadSkins();
 		
 		getCommand("lynxlib").setExecutor(new LynxLibCommand());
+		getCommand("worlds").setExecutor(new WorldsCommand());
+		getCommand("worlds").setTabCompleter(new WorldsCommand());
 		
 		
 		Bukkit.getPluginManager().registerEvents(new LLEvents(), this);
