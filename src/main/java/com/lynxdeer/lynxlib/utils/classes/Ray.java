@@ -1,57 +1,177 @@
 package com.lynxdeer.lynxlib.utils.classes;
 
+import com.lynxdeer.lynxlib.LL;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
+import java.util.Arrays;
+
 public class Ray {
 	
-	public Location origin;
+	public Vector origin;
 	public Vector direction;
 	
+	public Ray(Vector origin, Vector direction) {
+		this.origin = origin;
+		this.direction = direction;
+	}
+	
+	/**
+	 * This assumes that the direction vector is normalised. If it isn't, be warned!!!!
+	 */
+	public Ray(Location origin, Vector direction) {
+		this(origin.clone().toVector(), direction);
+	}
 	public Ray(Location origin) {
-		this.origin = origin.clone();
-		this.direction = origin.clone().getDirection().normalize();
+		this(origin.clone().toVector(), origin.clone().getDirection());
 	}
 	
-	public boolean check(Block block) { return check(block.getLocation()); }
-	
-	public boolean check(Location loc) {
-		return check(loc, new Vector(1, 1, 1));
+	public boolean isIntersectingBoundingBox(BoundingBox box) {
+		Vector min = box.getMin();
+		Vector max = box.getMax();
+		
+		double tmin = (min.getX() - this.origin.getX()) / this.direction.getX();
+		double tmax = (max.getX() - this.origin.getX()) / this.direction.getX();
+		
+		if (tmin > tmax) {
+			double temp = tmin;
+			tmin = tmax;
+			tmax = temp;
+		}
+		
+		double tymin = (min.getY() - this.origin.getY()) / this.direction.getY();
+		double tymax = (max.getY() - this.origin.getY()) / this.direction.getY();
+		
+		if (tymin > tymax) {
+			double temp = tymin;
+			tymin = tymax;
+			tymax = temp;
+		}
+		
+		if ((tmin > tymax) || (tymin > tmax))
+			return false;
+		
+		if (tymin > tmin) tmin = tymin;
+		if (tymax < tmax) tmax = tymax;
+		
+		double tzmin = (min.getZ() - this.origin.getZ()) / this.direction.getZ();
+		double tzmax = (max.getZ() - this.origin.getZ()) / this.direction.getZ();
+		
+		if (tzmin > tzmax) {
+			double temp = tzmin;
+			tzmin = tzmax;
+			tzmax = temp;
+		}
+		
+		if ((tmin > tzmax) || (tzmin > tmax))
+			return false;
+		
+		return true;
 	}
 	
-	public boolean check(World world, BoundingBox boundingBox) {
-		return check(new Location(world, boundingBox.getCenterX(), boundingBox.getCenterY(), boundingBox.getCenterZ()),
-					 new Vector(boundingBox.getWidthX(), boundingBox.getHeight(), boundingBox.getWidthZ()));
+	public Vector[] getIntersectionPointsAndNormals(BoundingBox box) {
+		Vector[] intersectionsAndNormals = new Vector[4];
+		Vector min = box.getMin();
+		Vector max = box.getMax();
+		Vector[] normals = {
+				new Vector(-1, 0, 0), // Normal for min X
+				new Vector(1, 0, 0),  // Normal for max X
+				new Vector(0, -1, 0), // Normal for min Y
+				new Vector(0, 1, 0),  // Normal for max Y
+				new Vector(0, 0, -1), // Normal for min Z
+				new Vector(0, 0, 1)   // Normal for max Z
+		};
+		
+		double tmin = (min.getX() - origin.getX()) / direction.getX();
+		double tmax = (max.getX() - origin.getX()) / direction.getX();
+		
+		if (tmin > tmax) {
+			double temp = tmin;
+			tmin = tmax;
+			tmax = temp;
+		}
+		
+		double tymin = (min.getY() - origin.getY()) / direction.getY();
+		double tymax = (max.getY() - origin.getY()) / direction.getY();
+		
+		if (tymin > tymax) {
+			double temp = tymin;
+			tymin = tymax;
+			tymax = temp;
+		}
+		
+		if ((tmin > tymax) || (tymin > tmax)) {
+			return null;
+		}
+		
+		if (tymin > tmin) {
+			tmin = tymin;
+		}
+		
+		if (tymax < tmax) {
+			tmax = tymax;
+		}
+		
+		double tzmin = (min.getZ() - origin.getZ()) / direction.getZ();
+		double tzmax = (max.getZ() - origin.getZ()) / direction.getZ();
+		
+		if (tzmin > tzmax) {
+			double temp = tzmin;
+			tzmin = tzmax;
+			tzmax = temp;
+		}
+		
+		if ((tmin > tzmax) || (tzmin > tmax)) {
+			return null;
+		}
+		
+		if (tzmin > tmin) {
+			tmin = tzmin;
+		}
+		
+		if (tzmax < tmax) {
+			tmax = tzmax;
+		}
+		
+		Vector firstIntersection = origin.clone().add(direction.clone().multiply(tmin));
+		Vector lastIntersection = origin.clone().add(direction.clone().multiply(tmax));
+		
+		Vector firstNormal = normals[getNormalIndex(firstIntersection, min, max)];
+		Vector lastNormal = normals[getNormalIndex(lastIntersection, min, max)];
+		
+		intersectionsAndNormals[0] = firstIntersection;
+		intersectionsAndNormals[1] = firstNormal;
+		intersectionsAndNormals[2] = lastIntersection;
+		intersectionsAndNormals[3] = lastNormal;
+		
+		return intersectionsAndNormals;
+	}
+	
+	private int getNormalIndex(Vector intersection, Vector min, Vector max) {
+		if (intersection.getX() == min.getX()) {
+			return 0;
+		} else if (intersection.getX() == max.getX()) {
+			return 1;
+		} else if (intersection.getY() == min.getY()) {
+			return 2;
+		} else if (intersection.getY() == max.getY()) {
+			return 3;
+		} else if (intersection.getZ() == min.getZ()) {
+			return 4;
+		} else {
+			return 5;
+		}
 	}
 	
 	
-	// TODO: Test whether this method actually works, or whether internet man was incorrect!
-	public boolean check(Location loc, Vector scaling) {
 	
-		double tx1 = (loc.getX() - this.origin.getX()) * this.direction.getX();
-		double tx2 = (loc.getX() + scaling.getX() - this.origin.getX()) * this.direction.getX();
-		
-		double ty1 = (loc.getY() - this.origin.getY()) * this.direction.getY();
-		double ty2 = (loc.getY() + scaling.getY() - this.origin.getY()) * this.direction.getY();
-		
-		double tz1 = (loc.getZ() - this.origin.getZ()) * this.direction.getZ();
-		double tz2 = (loc.getZ() + scaling.getZ() - this.origin.getZ()) * this.direction.getZ();
-		
-		double min = Math.min(tx1, tx2);
-		double max = Math.max(tx1, tx2);
-		
-		min = Math.max(min, Math.min(ty1, ty2));
-		max = Math.min(max, Math.max(ty1, ty2));
-		
-		min = Math.max(min, Math.min(tz1, tz2));
-		max = Math.min(max, Math.max(tz1, tz2));
-		
-		return (max >= min);
 	
-	}
+	
+	
+	
+	
 	
 	
 }

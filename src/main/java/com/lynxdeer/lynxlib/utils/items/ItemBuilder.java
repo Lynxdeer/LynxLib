@@ -23,7 +23,7 @@ public class ItemBuilder {
 	public int amount;
 	public int customModelData = 0;
 	public Component name;
-	public List<Component> lore;
+	public List<Component> lore = new ArrayList<>();
 	public List<ItemFlag> itemFlags = new ArrayList<>();
 	public boolean unbreakable;
 	public boolean removeAttackDelay = false;

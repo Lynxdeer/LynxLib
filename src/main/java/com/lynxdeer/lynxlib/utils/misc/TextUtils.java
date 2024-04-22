@@ -85,4 +85,40 @@ public class TextUtils {
 		return Component.text(text).color(color).decoration(TextDecoration.ITALIC, false).decoration(TextDecoration.BOLD, true);
 	}
 	
+	public static String smallText(String s) {
+		StringBuilder ret = new StringBuilder();
+		for (char c : s.toLowerCase().toCharArray()) {
+			ret.append(switch (c) {
+				case 'a' -> "ᴀ";
+				case 'b' -> "ʙ";
+				case 'c' -> "ᴄ";
+				case 'd' -> "ᴅ";
+				case 'e' -> "ᴇ";
+				case 'f' -> "ғ";
+				case 'g' -> "ɢ";
+				case 'h' -> "ʜ";
+				case 'i' -> "ɪ";
+				case 'j' -> "ᴊ";
+				case 'k' -> "ᴋ";
+				case 'l' -> "ʟ";
+				case 'm' -> "ᴍ";
+				case 'n' -> "ɴ";
+				case 'o' -> "ᴏ";
+				case 'p' -> "ᴘ";
+				case 'q' -> "ǫ";
+				case 'r' -> "ʀ";
+				case 's' -> "s";
+				case 't' -> "ᴛ";
+				case 'u' -> "ᴜ";
+				case 'v' -> "ᴠ";
+				case 'w' -> "ᴡ";
+				case 'x' -> "x";
+				case 'y' -> "ʏ";
+				case 'z' -> "ᴢ";
+				default -> c;
+			});
+		}
+		return ret.toString();
+	}
+	
 }
