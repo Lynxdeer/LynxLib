@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class FileObjectContainer {
 	
+	
+	
 	public static Class<?>[] supportedClasses = {
 		String.class, Character.class,
 		Integer.class, Float.class, Double.class
@@ -53,7 +55,7 @@ public class FileObjectContainer {
 		} catch (FileNotFoundException exception) {
 			Bukkit.getLogger().severe("Tried to save a FileObjectContainer, but file was somehow not found.");
 		} catch (IOException exception) {
-			Bukkit.getLogger().severe("Tried to save a FileObjectContainer, but encounered an IOEXception. \nStacktrace:\n" + Arrays.toString(exception.getStackTrace());
+			Bukkit.getLogger().severe("Tried to save a FileObjectContainer, but encounered an IOEXception. \nStacktrace:\n" + Arrays.toString(exception.getStackTrace()));
 		}
 	}
 	

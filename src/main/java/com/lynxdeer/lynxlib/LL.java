@@ -35,6 +35,9 @@ public class LL {
 			Bukkit.getLogger().log(Level.INFO, "[Debug] " + s);
 	}
 	
+	/**
+	* Debugging it as "Fine" hides it by default.
+	* */
 	public static void debugFine(String s) {
 		for (Player p : Bukkit.getOnlinePlayers())
 			if (p.isOp() && (p.hasMetadata("debug") && p.getMetadata("debug").get(0).asBoolean()))

@@ -88,37 +88,51 @@ public class TextUtils {
 	public static String smallText(String s) {
 		StringBuilder ret = new StringBuilder();
 		for (char c : s.toLowerCase().toCharArray()) {
-			ret.append(switch (c) {
-				case 'a' -> "ᴀ";
-				case 'b' -> "ʙ";
-				case 'c' -> "ᴄ";
-				case 'd' -> "ᴅ";
-				case 'e' -> "ᴇ";
-				case 'f' -> "ғ";
-				case 'g' -> "ɢ";
-				case 'h' -> "ʜ";
-				case 'i' -> "ɪ";
-				case 'j' -> "ᴊ";
-				case 'k' -> "ᴋ";
-				case 'l' -> "ʟ";
-				case 'm' -> "ᴍ";
-				case 'n' -> "ɴ";
-				case 'o' -> "ᴏ";
-				case 'p' -> "ᴘ";
-				case 'q' -> "ǫ";
-				case 'r' -> "ʀ";
-				case 's' -> "s";
-				case 't' -> "ᴛ";
-				case 'u' -> "ᴜ";
-				case 'v' -> "ᴠ";
-				case 'w' -> "ᴡ";
-				case 'x' -> "x";
-				case 'y' -> "ʏ";
-				case 'z' -> "ᴢ";
-				default -> c;
-			});
+			ret.append(smallChar(c));
 		}
 		return ret.toString();
+	}
+	
+	public static char smallChar(char original) {
+		return switch (original) {
+			case 'a' -> 'ᴀ';
+			case 'b' -> 'ʙ';
+			case 'c' -> 'ᴄ';
+			case 'd' -> 'ᴅ';
+			case 'e' -> 'ᴇ';
+			case 'f' -> 'ғ';
+			case 'g' -> 'ɢ';
+			case 'h' -> 'ʜ';
+			case 'i' -> 'ɪ';
+			case 'j' -> 'ᴊ';
+			case 'k' -> 'ᴋ';
+			case 'l' -> 'ʟ';
+			case 'm' -> 'ᴍ';
+			case 'n' -> 'ɴ';
+			case 'o' -> 'ᴏ';
+			case 'p' -> 'ᴘ';
+			case 'q' -> 'ǫ';
+			case 'r' -> 'ʀ';
+			case 's' -> 's';
+			case 't' -> 'ᴛ';
+			case 'u' -> 'ᴜ';
+			case 'v' -> 'ᴠ';
+			case 'w' -> 'ᴡ';
+			case 'x' -> 'x';
+			case 'y' -> 'ʏ';
+			case 'z' -> 'ᴢ';
+			case '0' -> '₀';
+			case '1' -> '₁';
+			case '2' -> '₂';
+			case '3' -> '₃';
+			case '4' -> '₄';
+			case '5' -> '₅';
+			case '6' -> '₆';
+			case '7' -> '₇';
+			case '8' -> '₈';
+			case '9' -> '₉';
+			default -> original;
+		};
 	}
 	
 }
