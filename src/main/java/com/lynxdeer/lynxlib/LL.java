@@ -64,12 +64,14 @@ public class LL {
 		for (Object s : args) {
 			String fs;
 			if (s == null) fs = "null";
+			else if (s instanceof byte[] byteArray) {fs = "["; for (byte b : byteArray) fs += b+" "; fs += "]";}
+			else if (s instanceof Byte b) fs = "0d(" + b.intValue() + ", " + b + ")";
 			else if (s instanceof Location) fs = String.format("x: %.2f, y: %.2f, z: %.2f", ((Location) s).getX(), ((Location) s).getY(), ((Location) s).getZ());
 			else if (s instanceof Vector) fs = String.format("x: %.2f, y: %.2f, z: %.2f", ((Vector) s).getX(), ((Vector) s).getY(), ((Vector) s).getZ());
 			else if (s instanceof Vector3f) fs = String.format("x: %.2f, y: %.2f, z: %.2f", ((Vector3f) s).z(), ((Vector3f) s).y(), ((Vector3f) s).z());
 			else if (s instanceof Quaternionf) fs = "x:" + ((Quaternionf) s).x + ", y:" + ((Quaternionf) s).y + ", z:" + ((Quaternionf) s).z  + ", w:" + ((Quaternionf) s).w;
 			else if (s instanceof AxisAngle4f) fs = "x:" + ((AxisAngle4f) s).x + ", y:" + ((AxisAngle4f) s).y + ", z:" + ((AxisAngle4f) s).z  + ", angle:" + ((AxisAngle4f) s).angle;
-			else if (s instanceof Collection<?> a) { fs = "["; for (Object o : a) fs += o.toString() + ", "; fs+="]"; }
+			else if (s instanceof Collection<?> a) { fs = "["; for (Object o : a) fs += debugBuilder("{}", o) + ", "; fs+="]"; }
 			else if (s instanceof Map<?, ?> a) { fs = "["; for (Map.Entry<?, ?> o : a.entrySet()) fs += "(" + o.getKey().toString() + ", " + o.getValue().toString() + ") "; fs+="]"; }
 			else fs = s.toString();
 			

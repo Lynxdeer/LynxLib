@@ -5,6 +5,7 @@ import com.lynxdeer.lynxlib.utils.misc.ClassUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -56,8 +57,12 @@ public class PDCUtils {
 	 * Things might mess up if the item is new and has no meta, but that's a problem for future me :D
 	 */
 	public static void setPDC(JavaPlugin plugin, String key, ItemStack item, Object value) {
-		if (item != null && item.hasItemMeta())
-			setPDC(plugin, key, item.getItemMeta().getPersistentDataContainer(), value);
+		if (item != null && item.hasItemMeta()) {
+			ItemMeta meta = item.getItemMeta();
+			setPDC(plugin, key, meta.getPersistentDataContainer(), value);
+			item.setItemMeta(meta);
+		}
+		
 	}
 	
 	public static void setPDC(JavaPlugin plugin, String key, Entity entity, Object value) {

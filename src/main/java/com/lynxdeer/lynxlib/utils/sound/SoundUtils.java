@@ -1,4 +1,4 @@
-package com.lynxdeer.lynxlib.utils.misc;
+package com.lynxdeer.lynxlib.utils.sound;
 
 
 import org.bukkit.Location;
