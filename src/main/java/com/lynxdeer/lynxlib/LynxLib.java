@@ -31,7 +31,6 @@ public final class LynxLib extends JavaPlugin {
 		tickRateMillis = 1000/tickRate;
 		PhysicsObject.gravityRate = (float) (9.8/Math.pow(tickRate, 2)/PhysicsUtils.collisionAccuracy);
 		
-//		mineskinClient = new MineskinClient("lynxsApiKey", "6174144f5b199c0565c1ad6577536d96a1bb73ff74614ed182380e1755a18e96");
 		currentPlugin = this;
 		Glowing.registerGlowPacketHandler();
 		
@@ -45,6 +44,9 @@ public final class LynxLib extends JavaPlugin {
 		
 		
 		Bukkit.getPluginManager().registerEvents(new LLEvents(), this);
+		
+		mineskinClient = new MineskinClient("lynxsApiKey", "6174144f5b199c0565c1ad6577536d96a1bb73ff74614ed182380e1755a18e96");
+		
 	}
 	
 	

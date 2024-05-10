@@ -1,5 +1,6 @@
 package com.lynxdeer.lynxlib.utils.npcs;
 
+import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.ItemDisplay;
 import org.joml.Matrix4f;
@@ -32,9 +33,9 @@ public class BodyPart {
 		
 		this.display = parent.loc.getWorld().spawn(parent.loc, ItemDisplay.class, i -> {
 			i.setItemStack(SkinUtils.textureToHead(this.texture));
-			display.setInterpolationDuration(0);
-			display.setInterpolationDelay(0);
-			display.setTransformationMatrix(getMatrix());
+			i.setInterpolationDuration(0);
+			i.setInterpolationDelay(0);
+			i.setTransformationMatrix(getMatrix());
 		});
 		
 	}
@@ -47,23 +48,25 @@ public class BodyPart {
 	
 	public Matrix4f getMatrix() {
 		Matrix4f matrix = new Matrix4f();
-		
-		// Scale first
-		matrix.scale(type.getScale());
-		
+
 		// Parent translation & rotation
 		matrix.translate(parent.translation);
 		matrix.rotateXYZ(parent.rotation);
-		
+
 		// Translate to apply the parent offset
-		matrix.translate(partOffset.sub(pivotOffset));
-		
+		matrix.translate(DisplayUtils.clone(partOffset).sub(pivotOffset));
+
 		// Rotate by part's rotation, then translate by pivot to apply pivot offset
-		matrix.rotateXYZ(rot);
+		matrix.rotateZYX(rot);
 		matrix.translate(pivotOffset);
-		
+
 		// Parent scale
 		matrix.scale(parent.scale);
+		
+		
+		// The part-specific scale
+		matrix.scale(type.getScale());
+		
 		return matrix;
 	}
 	

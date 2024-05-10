@@ -82,5 +82,9 @@ public class DisplayUtils {
 	public static Vector3f vectortovector3f(Vector vec) {
 		return new Vector3f((float) vec.getX(), (float) vec.getY(), (float) vec.getZ());
 	}
+	
+	public static Vector3f clone(Vector3f vec) {
+		return new Vector3f(vec.x, vec.y, vec.z);
+	}
 
 }

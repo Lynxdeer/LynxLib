@@ -1,5 +1,5 @@
 name: LynxLib
-version: '1.02'
+version: '1.03'
 main: com.lynxdeer.lynxlib.LynxLib
 api-version: '1.19'
 authors: [Lynxdeer]
