@@ -27,14 +27,13 @@ public class LLSound {
 	
 	
 	public void play(Location loc) {
-		if (this.delay > 0) Bukkit.getScheduler().runTaskLater(LynxLib.getLLPlugin(), () -> loc.getWorld().playSound(loc, sound, pitch, volume), delay);
-		else loc.getWorld().playSound(loc, sound, pitch, volume);
+		if (this.delay > 0) Bukkit.getScheduler().runTaskLater(LynxLib.getLLPlugin(), () -> loc.getWorld().playSound(loc, sound, volume, pitch), delay);
+		else loc.getWorld().playSound(loc, sound, volume, pitch);
 	}
 	
 	public void playMono(Player p) {
-		if (this.delay > 0) Bukkit.getScheduler().runTaskLater(LynxLib.getLLPlugin(), () -> p.playSound(p, sound, pitch, 1000), delay);
-		else p.playSound(p, sound, pitch, 1000);
-		
+		if (this.delay > 0) Bukkit.getScheduler().runTaskLater(LynxLib.getLLPlugin(), () -> p.playSound(p, sound,1000, pitch), delay);
+		else p.playSound(p, sound, 1000, pitch);
 	}
 	
 	

@@ -1,6 +1,8 @@
-package com.lynxdeer.lynxlib.utils.npcs;
+package com.lynxdeer.lynxlib.utils.npcs.renderer;
 
 import com.lynxdeer.lynxlib.utils.display.DisplayUtils;
+import com.lynxdeer.lynxlib.utils.npcs.NPC;
+import com.lynxdeer.lynxlib.utils.npcs.SkinUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.ItemDisplay;
 import org.joml.Matrix4f;

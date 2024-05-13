@@ -1,6 +1,7 @@
 package com.lynxdeer.lynxlib.utils.npcs;
 
 import com.lynxdeer.lynxlib.LL;
+import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartType;
 
 import java.io.BufferedWriter;
 import java.io.File;

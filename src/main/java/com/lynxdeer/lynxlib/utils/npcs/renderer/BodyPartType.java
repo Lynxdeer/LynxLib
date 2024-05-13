@@ -1,4 +1,4 @@
-package com.lynxdeer.lynxlib.utils.npcs;
+package com.lynxdeer.lynxlib.utils.npcs.renderer;
 
 import org.joml.Vector3f;
 
@@ -40,9 +40,11 @@ public enum BodyPartType {
 		return switch (this) {
 			case HEAD -> new Vector3f(0, 0.5f, 0);
 			case BODY_TOP -> new Vector3f(0, 0.5f, 0);
-			case BODY_BOTTOM -> new Vector3f(0, 0.5f, 0);
-			case LEFT_ARM_TOP, RIGHT_ARM_TOP -> new Vector3f(0, 0, 0);
-			case LEFT_ARM_BOTTOM, RIGHT_ARM_BOTTOM -> new Vector3f(0, -0.5f, 0);
+			case BODY_BOTTOM -> new Vector3f(0, 0.25f, 0);
+			case LEFT_ARM_TOP -> new Vector3f(0.125f, 0, 0);
+			case RIGHT_ARM_TOP -> new Vector3f(-0.125f, 0, 0);
+			case LEFT_ARM_BOTTOM -> new Vector3f(0.125f, -0.5f, 0);
+			case RIGHT_ARM_BOTTOM -> new Vector3f(-0.125f, -0.5f, 0);
 			case LEFT_LEG_TOP, LEFT_LEG_BOTTOM, RIGHT_LEG_TOP, RIGHT_LEG_BOTTOM ->  new Vector3f(0, -0.25f, 0);
 		};
 	}

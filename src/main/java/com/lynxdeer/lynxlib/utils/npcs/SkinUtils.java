@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.lynxdeer.lynxlib.LL;
 import com.lynxdeer.lynxlib.LynxLib;
+import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartType;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.Bukkit;
@@ -13,7 +14,6 @@ import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.json.simple.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
