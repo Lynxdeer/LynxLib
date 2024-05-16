@@ -2,9 +2,12 @@ package com.lynxdeer.lynxlib.utils.npcs.renderer;
 
 /**
  * This contains all the body parts that can be transformed and their parents,
- * while BodyPartType contains all the body parts that should be rendered
+ * while BodyPartType contains all the body parts that should be rendered.
+ *
+ * The difference is mainly that rotating by this will rotate the part's children, too.
+ * If you were, to example, rotate LEFT_ARM, it would rotate LEFT_ARM_TOP and LEFT_ARM_BOTTOM.
  */
-public enum AnimationBodyPartType {
+public enum BodyPartParent {
 	
 	HEAD,
 	BODY,

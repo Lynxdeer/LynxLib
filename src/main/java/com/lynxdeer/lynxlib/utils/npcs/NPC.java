@@ -1,6 +1,6 @@
 package com.lynxdeer.lynxlib.utils.npcs;
 
-import com.lynxdeer.lynxlib.utils.npcs.renderer.AnimationBodyPartType;
+import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartParent;
 import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPart;
 import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartType;
 import org.bukkit.Location;
@@ -45,13 +45,16 @@ public class NPC {
 	
 	}
 	
-	public void rotatePart(AnimationBodyPartType part, Vector3f rotation) {
-		
+	public void rotatePart(BodyPartParent part, Vector3f rotation) {
+
 		BodyPart[] partsToRotate = Arrays.stream(part.getChildren()).map(this::getBodyPart).toArray(BodyPart[]::new);
-		
-		
+		for (BodyPart bodyPart : partsToRotate) {
+			bodyPart.rot = rotation;
+			bodyPart.update();
+		}
+
 	}
-	
+
 	public BodyPart getBodyPart(BodyPartType type) {
 		return bodyParts.stream().filter(bp -> bp.type == type).findFirst().orElse(null);
 	}
