@@ -5,7 +5,6 @@ import com.lynxdeer.lynxlib.commands.WorldsCommand;
 import com.lynxdeer.lynxlib.events.LLEvents;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
-import com.lynxdeer.lynxlib.utils.items.PDCUtils;
 import com.lynxdeer.lynxlib.utils.npcs.Skin;
 import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;
@@ -45,8 +44,11 @@ public final class LynxLib extends JavaPlugin {
 		
 		Bukkit.getPluginManager().registerEvents(new LLEvents(), this);
 		
-		mineskinClient = new MineskinClient("lynxsApiKey", "6174144f5b199c0565c1ad6577536d96a1bb73ff74614ed182380e1755a18e96");
-		
+		try {
+			mineskinClient = new MineskinClient("lynxsApiKey", "6174144f5b199c0565c1ad6577536d96a1bb73ff74614ed182380e1755a18e96");
+		} catch (Exception e) {
+			Bukkit.getLogger().severe("Failed to register mineskin client. Oh well!");
+		}
 	}
 	
 	

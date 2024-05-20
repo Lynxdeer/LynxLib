@@ -77,16 +77,16 @@ public class SkinUtils {
 		Map<BodyPartType, CompletableFuture<String>> futureSkins = new HashMap<>();
 		
 		try {
-			futureSkins.put(BodyPartType.BODY_TOP, LynxLib.mineskinClient.generateUpload(getBodyTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.BODY_BOTTOM, LynxLib.mineskinClient.generateUpload(getBodyBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_ARM_TOP, LynxLib.mineskinClient.generateUpload(getRightArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_ARM_BOTTOM, LynxLib.mineskinClient.generateUpload(getRightArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_ARM_TOP, LynxLib.mineskinClient.generateUpload(getLeftArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_ARM_BOTTOM, LynxLib.mineskinClient.generateUpload(getLeftArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_LEG_TOP, LynxLib.mineskinClient.generateUpload(getRightLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_LEG_BOTTOM, LynxLib.mineskinClient.generateUpload(getRightLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_LEG_TOP, LynxLib.mineskinClient.generateUpload(getLeftLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_LEG_BOTTOM, LynxLib.mineskinClient.generateUpload(getLeftLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getBodyTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getBodyBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

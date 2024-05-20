@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WorldsCommand implements CommandExecutor, TabCompleter {
 	
@@ -51,6 +52,8 @@ public class WorldsCommand implements CommandExecutor, TabCompleter {
 	
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-		return LL.tabComplete(Bukkit.getWorlds(), s);
+		return LL.tabComplete(Bukkit.getWorlds().stream()
+				.map(World::getName)
+				.collect(Collectors.toList()), s);
 	}
 }

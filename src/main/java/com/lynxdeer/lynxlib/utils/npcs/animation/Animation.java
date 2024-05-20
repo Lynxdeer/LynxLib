@@ -73,16 +73,24 @@ public class Animation {
 						
 						JsonObject kf = partKeyframes.get(j).getAsJsonObject();
 						
+						AnimationChannel channel = AnimationChannel.valueOf(kf.get("channel").getAsString().toUpperCase());
+						Vector3f dataPoints = new Vector3f(
+								(float) (kf.get("data_points").getAsJsonObject().get("x").getAsDouble()),
+								(float) (kf.get("data_points").getAsJsonObject().get("y").getAsDouble()),
+								(float) (kf.get("data_points").getAsJsonObject().get("z").getAsDouble())  );
+						
+						if (channel == AnimationChannel.ROTATION) {
+							dataPoints.x = (float) Math.toRadians(dataPoints.x);
+							dataPoints.y = (float) Math.toRadians(dataPoints.y);
+							dataPoints.z = (float) Math.toRadians(dataPoints.z);
+						}
 						
 						animation.keyframes.add(
 								new Keyframe(
 										(int) kf.get("time").getAsDouble() * 20,
 										BodyPartParent.valueOf(partName.toUpperCase()),
-										AnimationChannel.valueOf(kf.get("channel").getAsString().toUpperCase()),
-										new Vector3f(
-												(float) kf.get("data_points").getAsJsonObject().get("x").getAsDouble(),
-												(float) kf.get("data_points").getAsJsonObject().get("y").getAsDouble(),
-												(float) kf.get("data_points").getAsJsonObject().get("z").getAsDouble()  )
+										channel,
+										dataPoints
 								));
 						
 					}
@@ -106,5 +114,6 @@ public class Animation {
 		}
 		return null;
 	}
+	
 	
 }
