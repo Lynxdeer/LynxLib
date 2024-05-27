@@ -71,6 +71,57 @@ public class Ray {
 		return true;
 	}
 	
+	public Vector[] getIntersectionPoints(BoundingBox box) {
+		Vector[] intersectionsAndNormals = new Vector[2];
+		Vector min = box.getMin();
+		Vector max = box.getMax();
+		
+		double tmin = (min.getX() - origin.getX()) / direction.getX();
+		double tmax = (max.getX() - origin.getX()) / direction.getX();
+		
+		if (tmin > tmax) {
+			double temp = tmin;
+			tmin = tmax;
+			tmax = temp;
+		}
+		
+		double tymin = (min.getY() - origin.getY()) / direction.getY();
+		double tymax = (max.getY() - origin.getY()) / direction.getY();
+		
+		if (tymin > tymax) {
+			double temp = tymin;
+			tymin = tymax;
+			tymax = temp;
+		}
+		
+		if ((tmin > tymax) || (tymin > tmax))
+			return null;
+		
+		if (tymin > tmin) tmin = tymin;
+		if (tymax < tmax) tmax = tymax;
+		
+		double tzmin = (min.getZ() - origin.getZ()) / direction.getZ();
+		double tzmax = (max.getZ() - origin.getZ()) / direction.getZ();
+		
+		if (tzmin > tzmax) {
+			double temp = tzmin;
+			tzmin = tzmax;
+			tzmax = temp;
+		}
+		
+		if ((tmin > tzmax) || (tzmin > tmax)) return null;
+		if (tzmin > tmin) tmin = tzmin;
+		if (tzmax < tmax) tmax = tzmax;
+		
+		Vector firstIntersection = origin.clone().add(direction.clone().multiply(tmin));
+		Vector lastIntersection = origin.clone().add(direction.clone().multiply(tmax));
+		
+		intersectionsAndNormals[0] = firstIntersection;
+		intersectionsAndNormals[1] = lastIntersection;
+		
+		return intersectionsAndNormals;
+	}
+	
 	public Vector[] getIntersectionPointsAndNormals(BoundingBox box) {
 		Vector[] intersectionsAndNormals = new Vector[4];
 		Vector min = box.getMin();

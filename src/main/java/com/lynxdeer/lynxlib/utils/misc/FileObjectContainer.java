@@ -46,7 +46,7 @@ public class FileObjectContainer {
 	
 	
 	public void saveFile(String path) {
-		LL.debug("Size: {}", savedItems.size());
+//		LL.debug("Size: {}", savedItems.size());
 		try {
 			
 			File file = new File(path);
@@ -82,6 +82,8 @@ public class FileObjectContainer {
 				outStream.flush();
 			}
 			
+			outStream.flush();
+			outStream.close();
 			
 		} catch (FileNotFoundException exception) {
 			Bukkit.getLogger().severe("Tried to save a FileObjectContainer, but file was somehow not found.");
@@ -127,8 +129,9 @@ public class FileObjectContainer {
 								} else {
 									int typeSize = sizeof(contentType);
 									byte[] rawContent = new byte[typeSize];
+//									LL.debug("Reading content type " + contentType.getSimpleName() + " at index " + index);
 									if (inputStream.read(rawContent) == -1)
-										Bukkit.getLogger().severe("Tried to read content from a FileObjectContainer, but the file ended.");
+										Bukkit.getLogger().severe("Tried to read content type + " + contentType.getSimpleName() + " from a FileObjectContainer at index + " + index + ", but the file ended.");
 									rawContentArray[index] = rawContent;
 								}
 								index++;
