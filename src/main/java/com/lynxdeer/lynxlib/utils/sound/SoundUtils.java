@@ -17,18 +17,18 @@ public class SoundUtils {
 	}
 	
 	/**
-	 * Returns a number between (origin - deviance/2) and (origin + deviance/2).
+	 * Returns a number between (origin - deviance) and (origin + deviance).
 	 * Specifically useful for getting a random pitch.
-	 * For example, with an origin of 1 and deviance of 0.1, it can return a number between 0.95 and 1.05.
+	 * For example, with an origin of 1 and deviance of 0.1, it can return a number between 0.9 and 1.1.
 	 */
 	public static float randomDeviation(float origin, float deviance) {
-		return origin + new Random().nextFloat()*deviance - deviance/2;
+		return origin + new Random().nextFloat()*(deviance*2) - deviance;
 	}
 	
 	/**
-	 * Returns a number between (origin - deviance/2) and (origin + deviance/2).
+	 * Returns a number between (origin - deviance) and (origin + deviance).
 	 * Specifically useful for getting a random pitch.
-	 * For example, with an origin of 1 and deviance of 0.1, it can return a number between 0.95 and 1.05.
+	 * For example, with an origin of 1 and deviance of 0.1, it can return a number between 0.9 and 1.1.
 	 */
 	public static float randomDeviation(float deviance) {
 		return randomDeviation(1, deviance);

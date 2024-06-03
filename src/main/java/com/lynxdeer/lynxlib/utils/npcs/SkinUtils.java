@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -53,6 +54,15 @@ public class SkinUtils {
 		
 		try {
 			return ImageIO.read(new URL(url));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static BufferedImage getSkinImageFromFile(File file) {
+		try {
+			return ImageIO.read(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -93,6 +103,29 @@ public class SkinUtils {
 		}
 		
 		return new Skin(head, futureSkins);
+	}
+	
+	public static Skin imageToParts(BufferedImage original) {
+		Map<BodyPartType, CompletableFuture<String>> futureSkins = new HashMap<>();
+		
+		try {
+			futureSkins.put(BodyPartType.HEAD, LynxLib.mineskinClient.generateUpload(original).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getBodyTop(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getBodyBottom(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArmTop(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightArmBottom(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArmTop(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftArmBottom(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLegTop(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightLegBottom(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLegTop(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftLegBottom(original)).thenApply(skin -> skin.data.texture.value));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new Skin(futureSkins);
 	}
 	
 	public static ItemStack getPlayerHead(UUID uuid) { return getPlayerHead(Bukkit.getOfflinePlayer(uuid)); }

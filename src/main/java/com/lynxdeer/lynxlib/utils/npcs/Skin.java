@@ -52,6 +52,31 @@ public class Skin {
 		skins.add(id, this);
 	}
 	
+	public Skin(Map<BodyPartType, CompletableFuture<String>> finTextures) {
+		
+		id = nextFreeId++;
+		
+		this.futureTextures = finTextures;
+		this.readyTextures = new HashMap<>();
+		
+		futureTextures.forEach((k, v) -> v.thenAccept(s -> readyTextures.put(k, s)));
+		
+		CompletableFuture.allOf(futureTextures.values().toArray(new CompletableFuture[0])).thenRun(() -> {
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter("plugins/LynxLib/skins/" + id + ".lynxskin"))) {
+				for (CompletableFuture<String> future : this.futureTextures.values()) {
+					writer.write(futureTextures.entrySet().stream().filter(entry -> entry.getValue().equals(future)).map(Map.Entry::getKey).findFirst().orElse(null).name());
+					writer.write(":::");
+					writer.write(future.join());
+					writer.newLine();
+				}
+				ready = true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		skins.add(id, this);
+	}
+	
 	public Skin(int id, Map<BodyPartType, String> textures) {
 		this.id = id;
 		this.ready = true;

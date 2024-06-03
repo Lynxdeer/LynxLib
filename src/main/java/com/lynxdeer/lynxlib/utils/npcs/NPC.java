@@ -54,6 +54,16 @@ public class NPC {
 		}
 
 	}
+	
+	public void movePart(BodyPartParent part, Vector3f offset) {
+		
+		BodyPart[] partsToRotate = Arrays.stream(part.getChildren()).map(this::getBodyPart).toArray(BodyPart[]::new);
+		for (BodyPart bodyPart : partsToRotate) {
+			bodyPart.partOffset = offset;
+			bodyPart.update();
+		}
+		
+	}
 
 	public BodyPart getBodyPart(BodyPartType type) {
 		return bodyParts.stream().filter(bp -> bp.type == type).findFirst().orElse(null);
