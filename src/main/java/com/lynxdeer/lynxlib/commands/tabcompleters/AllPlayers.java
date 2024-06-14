@@ -1,4 +1,4 @@
-package com.lynxdeer.lynxlib.tabcompleters;
+package com.lynxdeer.lynxlib.commands.tabcompleters;
 
 import com.lynxdeer.lynxlib.LL;
 import org.bukkit.Bukkit;

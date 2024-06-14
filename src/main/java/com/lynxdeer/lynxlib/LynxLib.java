@@ -33,10 +33,6 @@ public final class LynxLib extends JavaPlugin {
 		currentPlugin = this;
 		Glowing.registerGlowPacketHandler();
 		
-		Path dir = Paths.get("plugins/LynxLib/skins/");
-		if (!Files.exists(dir)) try {         Files.createDirectories(dir);          }catch(Exception e){e.printStackTrace();}
-		Skin.loadSkins();
-		
 		getCommand("lynxlib").setExecutor(new LynxLibCommand());
 		getCommand("worlds").setExecutor(new WorldsCommand());
 		getCommand("worlds").setTabCompleter(new WorldsCommand());
@@ -46,6 +42,10 @@ public final class LynxLib extends JavaPlugin {
 		
 		try {
 			mineskinClient = new MineskinClient("lynxsApiKey", "6174144f5b199c0565c1ad6577536d96a1bb73ff74614ed182380e1755a18e96");
+			// Only does the below if mineskinClient doesn't fail to load
+			Path dir = Paths.get("plugins/LynxLib/skins/");
+			if (!Files.exists(dir)) try {         Files.createDirectories(dir);          }catch(Exception e){e.printStackTrace();}
+			Skin.loadSkins();
 		} catch (NoClassDefFoundError e) {
 			Bukkit.getLogger().severe("Failed to register mineskin client. Oh well!");
 		}
