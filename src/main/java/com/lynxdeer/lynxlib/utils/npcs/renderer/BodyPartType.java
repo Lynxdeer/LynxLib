@@ -43,7 +43,7 @@ public enum BodyPartType {
 			case HEAD -> new Vector3f(0, 0.5f, 0);
 			case CHEST -> new Vector3f(0, 0.5f, 0);
 			case WAIST -> new Vector3f(0, 0.25f, 0);
-			case HIP -> null;
+			case HIP -> new Vector3f(0, 0.125f, 0);
 			case LEFT_ARM -> new Vector3f(0.125f, 0, 0);
 			case RIGHT_ARM -> new Vector3f(-0.125f, 0, 0);
 			case LEFT_FOREARM -> new Vector3f(0.125f, -0.5f, 0);
@@ -56,9 +56,9 @@ public enum BodyPartType {
 	public Vector3f getScale() {
 		return switch (this) {
 			case HEAD -> new Vector3f(1, 1, 1);
-			case CHEST -> new Vector3f(1, 1, 0.5f);
+			case CHEST -> new Vector3f(1, 0.5f, 0.5f);
 			case WAIST -> new Vector3f(1, 0.5f, 0.5f);
-			case HIP -> null;
+			case HIP -> new Vector3f(1, 0.5f, 0.5f);
 			case LEFT_ARM, RIGHT_ARM, LEFT_LEG, RIGHT_LEG -> new Vector3f(0.5f, 1, 0.5f);
 			case LEFT_FOREARM, RIGHT_FOREARM, LEFT_FORELEG, RIGHT_FORELEG -> new Vector3f(0.5f, 0.5f, 0.5f);
 		};
