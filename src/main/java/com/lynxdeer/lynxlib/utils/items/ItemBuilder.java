@@ -19,21 +19,22 @@ import java.util.*;
 
 public class ItemBuilder {
 	
-	public Material material;
-	public int amount;
+	private Material material;
+	private int amount;
 	public int customModelData = 0;
-	public Component name;
+	private double damageModifier = 0;
+	private Component name;
 	public List<Component> lore = new ArrayList<>();
-	public List<ItemFlag> itemFlags = new ArrayList<>();
-	public boolean unbreakable;
-	public boolean removeAttackDelay = false;
-	public int[] color = null;
-	public HashMap<Enchantment, Integer> enchantments = new HashMap<>();
-	public Set<Material> canPlace;
-	public Set<Material> canDestroy;
+	private List<ItemFlag> itemFlags = new ArrayList<>();
+	private boolean unbreakable;
+	private boolean removeAttackDelay = false;
+	private int[] color = null;
+	private HashMap<Enchantment, Integer> enchantments = new HashMap<>();
+	private Set<Material> canPlace;
+	private Set<Material> canDestroy;
 	
-	public JavaPlugin creatingPlugin;
-	public HashMap<String, Object> persistentDataContainer = new HashMap<>();
+	private JavaPlugin creatingPlugin;
+	private HashMap<String, Object> persistentDataContainer = new HashMap<>();
 	
 	
 	public ItemBuilder(Material material) {
@@ -86,6 +87,10 @@ public class ItemBuilder {
 		enchantments.put(enchantment, level);
 		return this;
 	}
+	public ItemBuilder addDamage(double amount) {
+		damageModifier = amount;
+		return this;
+	}
 	
 	/**
 	 * Persistent data container.
@@ -123,7 +128,8 @@ public class ItemBuilder {
 		
 		if (this.canDestroy != null) meta.setCanDestroy(this.canDestroy);
 		if   (this.canPlace != null) meta.setCanPlaceOn(this.canPlace);
-		if  (this.removeAttackDelay) meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "noDelay", 40, AttributeModifier.Operation.ADD_NUMBER));
+		if  (this.removeAttackDelay) meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier("noDelay", 40, AttributeModifier.Operation.ADD_NUMBER));
+		if     (damageModifier != 0) meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier("attackDamage", damageModifier, AttributeModifier.Operation.ADD_NUMBER));
 		
 		meta.displayName(name);
 		if (customModelData > 0) meta.setCustomModelData(customModelData);
