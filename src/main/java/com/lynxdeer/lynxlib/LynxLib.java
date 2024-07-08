@@ -31,7 +31,7 @@ public final class LynxLib extends JavaPlugin {
 		PhysicsObject.gravityRate = (float) (9.8/Math.pow(tickRate, 2)/PhysicsUtils.collisionAccuracy);
 		
 		currentPlugin = this;
-		Glowing.registerGlowPacketHandler();
+//		Glowing.registerGlowPacketHandler();
 		
 		getCommand("lynxlib").setExecutor(new LynxLibCommand());
 		getCommand("worlds").setExecutor(new WorldsCommand());

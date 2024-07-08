@@ -23,6 +23,8 @@ public class BodyPart {
 	public Vector3f rot;
 	public Vector3f pivotOffset;
 	
+	public Matrix4f matrix;
+	
 	public BodyPart(NPC parent, BodyPartType type) {
 		this.parent = parent;
 		this.type = type;
@@ -45,10 +47,11 @@ public class BodyPart {
 	public void update() {
 		display.setInterpolationDelay(0);
 		display.setInterpolationDuration(1);
-		display.setTransformationMatrix(getMatrix());
+		display.setTransformationMatrix(matrix);
 	}
 	
 	public Matrix4f getMatrix() {
+		
 		Matrix4f matrix = new Matrix4f();
 
 		// Parent translation & rotation
@@ -64,11 +67,11 @@ public class BodyPart {
 
 		// Parent scale
 		matrix.scale(parent.scale);
-		
-		
+
+
 		// The part-specific scale
 		matrix.scale(type.getScale());
-		
+
 		return matrix;
 	}
 	

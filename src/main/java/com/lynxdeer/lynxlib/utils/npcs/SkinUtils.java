@@ -87,16 +87,17 @@ public class SkinUtils {
 		Map<BodyPartType, CompletableFuture<String>> futureSkins = new HashMap<>();
 		
 		try {
-			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getBodyTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getBodyBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArmTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftArmBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLegTop(baseSkin)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftLegBottom(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getChest(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getWaist(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.HIP, LynxLib.mineskinClient.generateUpload(getHips(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArm(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightForearm(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArm(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftForearm(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLeg(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightForeleg(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLeg(baseSkin)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftForeleg(baseSkin)).thenApply(skin -> skin.data.texture.value));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,16 +111,17 @@ public class SkinUtils {
 		
 		try {
 			futureSkins.put(BodyPartType.HEAD, LynxLib.mineskinClient.generateUpload(original).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getBodyTop(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getBodyBottom(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArmTop(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightArmBottom(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArmTop(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftArmBottom(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLegTop(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightLegBottom(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLegTop(original)).thenApply(skin -> skin.data.texture.value));
-			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftLegBottom(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.CHEST, LynxLib.mineskinClient.generateUpload(getChest(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.WAIST, LynxLib.mineskinClient.generateUpload(getWaist(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.HIP, LynxLib.mineskinClient.generateUpload(getHips(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_ARM, LynxLib.mineskinClient.generateUpload(getRightArm(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FOREARM, LynxLib.mineskinClient.generateUpload(getRightForearm(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_ARM, LynxLib.mineskinClient.generateUpload(getLeftArm(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FOREARM, LynxLib.mineskinClient.generateUpload(getLeftForearm(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_LEG, LynxLib.mineskinClient.generateUpload(getRightLeg(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.RIGHT_FORELEG, LynxLib.mineskinClient.generateUpload(getRightForeleg(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_LEG, LynxLib.mineskinClient.generateUpload(getLeftLeg(original)).thenApply(skin -> skin.data.texture.value));
+			futureSkins.put(BodyPartType.LEFT_FORELEG, LynxLib.mineskinClient.generateUpload(getLeftForeleg(original)).thenApply(skin -> skin.data.texture.value));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,274 +159,291 @@ public class SkinUtils {
 		return item;
 	}
 	
-	public static BufferedImage getBodyTop(BufferedImage skin) {
+	public static void drawSides(
+			
+			Graphics2D graphics,
+			BufferedImage front, BufferedImage back, BufferedImage right, BufferedImage left,
+			BufferedImage frontOverlay, BufferedImage backOverlay, BufferedImage rightOverlay, BufferedImage leftOverlay) {
+		
+		graphics.drawImage(front, null, 8, 8);
+		graphics.drawImage(back, null, 24, 8);
+		graphics.drawImage(right, null, 0, 8);
+		graphics.drawImage(left, null, 16, 8);
+		graphics.drawImage(frontOverlay, null, 40, 8);
+		graphics.drawImage(backOverlay, null, 56, 8);
+		graphics.drawImage(rightOverlay, null, 32, 8);
+		graphics.drawImage(leftOverlay, null, 48, 8);
+		
+	}
+	
+	public static void drawUp(Graphics2D graphics, BufferedImage up, BufferedImage upOverlay) {
+		
+		graphics.drawImage(up, null, 8, 0);
+		graphics.drawImage(upOverlay, null, 40, 0);
+		
+	}
+	
+	public static void drawDown(Graphics2D graphics, BufferedImage down, BufferedImage downOverlay) {
+		
+		graphics.drawImage(down, null, 16, 0);
+		graphics.drawImage(downOverlay, null, 48, 0);
+		
+	}
+	
+	public static BufferedImage getChest(BufferedImage skin) {
+		
 		BufferedImage body1 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = body1.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{20, 20, 8, 8}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{32, 20, 8, 8}, 8, 8);
-		BufferedImage up = getClipResize(skin, new Integer[]{20, 16, 8, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{16, 20, 4, 8}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{28, 20, 4, 8}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{20, 36, 8, 8}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{32, 36, 8, 8}, 8, 8);
-		BufferedImage upnd = getClipResize(skin, new Integer[]{20, 32, 8, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{16, 36, 4, 8}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{28, 36, 4, 8}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(up, null, 8, 0);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(upnd, null, 40, 0);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
+		
+		BufferedImage front = resize(skin, 20, 20, 8, 4);
+		BufferedImage back =  resize(skin, 32, 20, 8, 4);
+		BufferedImage up =    resize(skin, 20, 16, 8, 4);
+		BufferedImage right = resize(skin, 16, 20, 4, 4);
+		BufferedImage left =  resize(skin, 28, 20, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 20, 36, 8, 4);
+		BufferedImage backOverlay =  resize(skin, 32, 36, 8, 4);
+		BufferedImage upOverlay =    resize(skin, 20, 32, 8, 4);
+		BufferedImage rightOverlay = resize(skin, 16, 36, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 28, 36, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawUp(graphics, up, upOverlay);
+		
 		return body1;
+		
 	}
 	
-	public static BufferedImage getBodyBottom(BufferedImage skin) {
+	public static BufferedImage getWaist(BufferedImage skin) {
+		
 		BufferedImage body2 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = body2.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{20, 28, 8, 4}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{32, 28, 8, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{16, 28, 4, 4}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{28, 28, 4, 4}, 8, 8);
-		BufferedImage down = getClipResize(skin, new Integer[]{28, 16, 8, 4}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{20, 44, 8, 4}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{32, 44, 8, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{16, 44, 4, 4}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{28, 44, 4, 4}, 8, 8);
-		BufferedImage downnd = getClipResize(skin, new Integer[]{28, 32, 8, 4}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(down, null, 16, 0);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
-		graphics.drawImage(downnd, null, 48, 0);
+		
+		BufferedImage front = resize(skin, 20, 24, 8, 4);
+		BufferedImage back =  resize(skin, 32, 24, 8, 4);
+		BufferedImage right = resize(skin, 16, 24, 4, 4);
+		BufferedImage left =  resize(skin, 28, 24, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 20, 44, 8, 4);
+		BufferedImage backOverlay =  resize(skin, 32, 44, 8, 4);
+		BufferedImage rightOverlay = resize(skin, 16, 44, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 28, 44, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		
 		return body2;
+		
 	}
 	
-	public static BufferedImage getRightArmTop(BufferedImage skin) {
+	public static BufferedImage getHips(BufferedImage skin) {
+		
+		BufferedImage body2 = new BufferedImage(64, 64, 2);
+		Graphics2D graphics = body2.createGraphics();
+		
+		BufferedImage front = resize(skin, 20, 28, 8, 4);
+		BufferedImage back =  resize(skin, 32, 28, 8, 4);
+		BufferedImage right = resize(skin, 16, 28, 4, 4);
+		BufferedImage left =  resize(skin, 28, 28, 4, 4);
+		BufferedImage down =  resize(skin, 28, 16, 8, 4);
+		BufferedImage frontOverlay = resize(skin, 20, 44, 8, 4);
+		BufferedImage backOverlay =  resize(skin, 32, 44, 8, 4);
+		BufferedImage rightOverlay = resize(skin, 16, 44, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 28, 44, 4, 4);
+		BufferedImage downOverlay =  resize(skin, 28, 32, 8, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawDown(graphics, down, downOverlay);
+		
+		return body2;
+		
+	}
+	
+	public static BufferedImage getRightArm(BufferedImage skin) {
+		
 		BufferedImage right_arm1 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = right_arm1.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{44, 20, 4, 8}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{52, 20, 4, 8}, 8, 8);
-		BufferedImage up = getClipResize(skin, new Integer[]{44, 16, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{40, 20, 4, 8}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{48, 20, 4, 8}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{44, 36, 4, 8}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{52, 36, 4, 8}, 8, 8);
-		BufferedImage upnd = getClipResize(skin, new Integer[]{44, 32, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{40, 36, 4, 8}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{48, 36, 4, 8}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(up, null, 8, 0);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(upnd, null, 40, 0);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
+		
+		BufferedImage front = resize(skin, 44, 20, 4, 8);
+		BufferedImage back =  resize(skin, 52, 20, 4, 8);
+		BufferedImage up =    resize(skin, 44, 16, 4, 4);
+		BufferedImage right = resize(skin, 40, 20, 4, 8);
+		BufferedImage left =  resize(skin, 48, 20, 4, 8);
+		BufferedImage frontOverlay = resize(skin, 44, 36, 4, 8);
+		BufferedImage backOverlay =  resize(skin, 52, 36, 4, 8);
+		BufferedImage upOverlay =    resize(skin, 44, 32, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 40, 36, 4, 8);
+		BufferedImage leftOverlay =  resize(skin, 48, 36, 4, 8);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawUp(graphics, up, upOverlay);
+		
 		return right_arm1;
+		
 	}
 	
-	public static BufferedImage getRightArmBottom(BufferedImage skin) {
+	public static BufferedImage getRightForearm(BufferedImage skin) {
+		
 		BufferedImage right_arm2 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = right_arm2.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{44, 28, 4, 4}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{52, 28, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{40, 28, 4, 4}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{48, 28, 4, 4}, 8, 8);
-		BufferedImage down = getClipResize(skin, new Integer[]{48, 16, 4, 4}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{44, 44, 4, 4}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{52, 44, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{40, 44, 4, 4}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{48, 44, 4, 4}, 8, 8);
-		BufferedImage downnd = getClipResize(skin, new Integer[]{48, 32, 4, 4}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(down, null, 16, 0);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
-		graphics.drawImage(downnd, null, 48, 0);
+		
+		BufferedImage front = resize(skin, 44, 28, 4, 4);
+		BufferedImage back =  resize(skin, 52, 28, 4, 4);
+		BufferedImage right = resize(skin, 40, 28, 4, 4);
+		BufferedImage left =  resize(skin, 48, 28, 4, 4);
+		BufferedImage down =  resize(skin, 48, 16, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 44, 44, 4, 4);
+		BufferedImage backOverlay =  resize(skin, 52, 44, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 40, 44, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 48, 44, 4, 4);
+		BufferedImage downOverlay =  resize(skin, 48, 32, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawDown(graphics, down, downOverlay);
+		
 		return right_arm2;
+		
 	}
 	
-	public static BufferedImage getLeftArmTop(BufferedImage skin) {
+	public static BufferedImage getLeftArm(BufferedImage skin) {
+		
 		BufferedImage left_arm1 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = left_arm1.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{36, 52, 4, 8}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{44, 52, 4, 8}, 8, 8);
-		BufferedImage up = getClipResize(skin, new Integer[]{36, 48, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{32, 52, 4, 8}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{40, 52, 4, 8}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{52, 52, 4, 8}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{60, 52, 4, 8}, 8, 8);
-		BufferedImage upnd = getClipResize(skin, new Integer[]{52, 48, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{48, 52, 4, 8}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{56, 52, 4, 8}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(up, null, 8, 0);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(upnd, null, 40, 0);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
+		
+		BufferedImage front = resize(skin, 36, 52, 4, 8);
+		BufferedImage back =  resize(skin, 44, 52, 4, 8);
+		BufferedImage up =    resize(skin, 36, 48, 4, 4);
+		BufferedImage right = resize(skin, 32, 52, 4, 8);
+		BufferedImage left =  resize(skin, 40, 52, 4, 8);
+		BufferedImage frontOverlay = resize(skin, 52, 52, 4, 8);
+		BufferedImage backOverlay =  resize(skin, 60, 52, 4, 8);
+		BufferedImage upOverlay =    resize(skin, 52, 48, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 48, 52, 4, 8);
+		BufferedImage leftOverlay =  resize(skin, 56, 52, 4, 8);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawUp(graphics, up, upOverlay);
+		
 		return left_arm1;
 	}
 	
-	public static BufferedImage getLeftArmBottom(BufferedImage skin) {
+	public static BufferedImage getLeftForearm(BufferedImage skin) {
+		
 		BufferedImage left_arm2 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = left_arm2.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{36, 60, 4, 4}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{44, 60, 4, 4}, 8, 8);
-		BufferedImage down = getClipResize(skin, new Integer[]{40, 48, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{32, 60, 4, 4}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{40, 60, 4, 4}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{52, 60, 4, 4}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{60, 60, 4, 4}, 8, 8);
-		BufferedImage downnd = getClipResize(skin, new Integer[]{56, 48, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{48, 60, 4, 4}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{56, 60, 4, 4}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(down, null, 16, 0);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
-		graphics.drawImage(downnd, null, 48, 0);
+		
+		BufferedImage front = resize(skin, 36, 60, 4, 4);
+		BufferedImage back =  resize(skin, 44, 60, 4, 4);
+		BufferedImage down =  resize(skin, 40, 48, 4, 4);
+		BufferedImage right = resize(skin, 32, 60, 4, 4);
+		BufferedImage left =  resize(skin, 40, 60, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 52, 60, 4, 4);
+		BufferedImage backOverlay =  resize(skin, 60, 60, 4, 4);
+		BufferedImage downOverlay =  resize(skin, 56, 48, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 48, 60, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 56, 60, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawDown(graphics, down, downOverlay);
+		
 		return left_arm2;
 	}
 	
-	public static BufferedImage getRightLegTop(BufferedImage skin) {
+	public static BufferedImage getRightLeg(BufferedImage skin) {
+		
 		BufferedImage right_leg1 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = right_leg1.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{4, 20, 4, 8}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{12, 20, 4, 8}, 8, 8);
-		BufferedImage up = getClipResize(skin, new Integer[]{4, 16, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{0, 20, 4, 8}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{8, 20, 4, 8}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{4, 36, 4, 8}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{12, 36, 4, 8}, 8, 8);
-		BufferedImage upnd = getClipResize(skin, new Integer[]{4, 32, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{0, 36, 4, 8}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{8, 36, 4, 8}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(up, null, 8, 0);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(upnd, null, 40, 0);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
+		
+		BufferedImage front = resize(skin, 4, 20, 4, 8);
+		BufferedImage back =  resize(skin, 12, 20, 4, 8);
+		BufferedImage up =    resize(skin, 4, 16, 4, 4);
+		BufferedImage right = resize(skin, 0, 20, 4, 8);
+		BufferedImage left =  resize(skin, 8, 20, 4, 8);
+		BufferedImage frontOverlay = resize(skin, 4, 36, 4, 8);
+		BufferedImage backOverlay =  resize(skin, 12, 36, 4, 8);
+		BufferedImage upOverlay =    resize(skin, 4, 32, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 0, 36, 4, 8);
+		BufferedImage leftOverlay =  resize(skin, 8, 36, 4, 8);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawUp(graphics, up, upOverlay);
+		
 		return right_leg1;
+		
 	}
 	
-	public static BufferedImage getRightLegBottom(BufferedImage skin) {
+	public static BufferedImage getRightForeleg(BufferedImage skin) {
+		
 		BufferedImage right_leg2 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = right_leg2.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{4, 28, 4, 4}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{12, 28, 4, 4}, 8, 8);
-		BufferedImage down = getClipResize(skin, new Integer[]{8, 16, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{0, 28, 4, 4}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{8, 28, 4, 4}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{4, 44, 4, 4}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{8, 32, 4, 4}, 8, 8);
-		BufferedImage downnd = getClipResize(skin, new Integer[]{8, 32, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{0, 44, 4, 4}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{8, 44, 4, 4}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(down, null, 16, 0);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
-		graphics.drawImage(downnd, null, 48, 0);
+		
+		BufferedImage front = resize(skin, 4, 28, 4, 4);
+		BufferedImage back =  resize(skin, 12, 28, 4, 4);
+		BufferedImage down =  resize(skin, 8, 16, 4, 4);
+		BufferedImage right = resize(skin, 0, 28, 4, 4);
+		BufferedImage left =  resize(skin, 8, 28, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 4, 44, 4, 4);
+		BufferedImage backOverlay =  resize(skin, 8, 32, 4, 4);
+		BufferedImage downOverlay =  resize(skin, 8, 32, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 0, 44, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 8, 44, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawDown(graphics, down, downOverlay);
+		
 		return right_leg2;
+		
 	}
 	
-	public static BufferedImage getLeftLegTop(BufferedImage skin) {
+	public static BufferedImage getLeftLeg(BufferedImage skin) {
+		
 		BufferedImage left_leg1 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = left_leg1.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{20, 52, 4, 8}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{28, 52, 4, 8}, 8, 8);
-		BufferedImage up = getClipResize(skin, new Integer[]{20, 48, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{16, 52, 4, 8}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{24, 52, 4, 8}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{4, 52, 4, 8}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{12, 52, 4, 8}, 8, 8);
-		BufferedImage upnd = getClipResize(skin, new Integer[]{4, 48, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{0, 52, 4, 8}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{8, 52, 4, 8}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(up, null, 8, 0);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(upnd, null, 40, 0);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
+		
+		BufferedImage front = resize(skin, 20, 52, 4, 8);
+		BufferedImage back =  resize(skin, 28, 52, 4, 8);
+		BufferedImage up =    resize(skin, 20, 48, 4, 4);
+		BufferedImage right = resize(skin, 16, 52, 4, 8);
+		BufferedImage left =  resize(skin, 24, 52, 4, 8);
+		BufferedImage frontOverlay = resize(skin, 4, 52, 4, 8);
+		BufferedImage backOverlay =  resize(skin, 12, 52, 4, 8);
+		BufferedImage upOverlay =    resize(skin, 4, 48, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 0, 52, 4, 8);
+		BufferedImage leftOverlay =  resize(skin, 8, 52, 4, 8);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawUp(graphics, up, upOverlay);
+		
 		return left_leg1;
 	}
 	
-	public static BufferedImage getLeftLegBottom(BufferedImage skin) {
+	public static BufferedImage getLeftForeleg(BufferedImage skin) {
+		
 		BufferedImage left_leg2 = new BufferedImage(64, 64, 2);
 		Graphics2D graphics = left_leg2.createGraphics();
-		BufferedImage front = getClipResize(skin, new Integer[]{20, 60, 4, 4}, 8, 8);
-		BufferedImage back = getClipResize(skin, new Integer[]{28, 60, 4, 4}, 8, 8);
-		BufferedImage down = getClipResize(skin, new Integer[]{24, 48, 4, 4}, 8, 8);
-		BufferedImage right = getClipResize(skin, new Integer[]{16, 60, 4, 4}, 8, 8);
-		BufferedImage left = getClipResize(skin, new Integer[]{24, 60, 4, 4}, 8, 8);
-		BufferedImage frontnd = getClipResize(skin, new Integer[]{4, 60, 4, 4}, 8, 8);
-		BufferedImage backnd = getClipResize(skin, new Integer[]{12, 60, 4, 4}, 8, 8);
-		BufferedImage downnd = getClipResize(skin, new Integer[]{8, 48, 4, 4}, 8, 8);
-		BufferedImage rightnd = getClipResize(skin, new Integer[]{0, 60, 4, 4}, 8, 8);
-		BufferedImage leftnd = getClipResize(skin, new Integer[]{8, 60, 4, 4}, 8, 8);
-		graphics.drawImage(front, null, 8, 8);
-		graphics.drawImage(back, null, 24, 8);
-		graphics.drawImage(right, null, 0, 8);
-		graphics.drawImage(left, null, 16, 8);
-		graphics.drawImage(down, null, 16, 0);
-		graphics.drawImage(frontnd, null, 40, 8);
-		graphics.drawImage(backnd, null, 56, 8);
-		graphics.drawImage(rightnd, null, 32, 8);
-		graphics.drawImage(leftnd, null, 48, 8);
-		graphics.drawImage(downnd, null, 48, 0);
+		
+		BufferedImage front = resize(skin, 20, 60, 4, 4);
+		BufferedImage back =  resize(skin, 28, 60, 4, 4);
+		BufferedImage down =  resize(skin, 24, 48, 4, 4);
+		BufferedImage right = resize(skin, 16, 60, 4, 4);
+		BufferedImage left =  resize(skin, 24, 60, 4, 4);
+		BufferedImage frontOverlay = resize(skin, 4, 60, 4, 4);
+		BufferedImage backOverlay =  resize(skin, 12, 60, 4, 4);
+		BufferedImage downOverlay =  resize(skin, 8, 48, 4, 4);
+		BufferedImage rightOverlay = resize(skin, 0, 60, 4, 4);
+		BufferedImage leftOverlay =  resize(skin, 8, 60, 4, 4);
+		
+		drawSides(graphics, front, back, right, left, frontOverlay, backOverlay, rightOverlay, leftOverlay);
+		drawDown(graphics, down, downOverlay);
+		
 		return left_leg2;
+		
 	}
 	
-	public static BufferedImage getClipResize(BufferedImage base, Integer[] offset, int sizex, int sizey) {
-		int x = offset[0];
-		int y = offset[1];
-		int w = offset[2];
-		int h = offset[3];
-		BufferedImage image = base.getSubimage(x, y, w, h);
-		image = scale(image, sizex, sizey);
+	public static BufferedImage resize(BufferedImage base, int offsetX, int offsetY, int width, int height) {
+		
+		BufferedImage image = base.getSubimage(offsetX, offsetY, width, height);
+		image = scale(image, 8, 8);
+		
 		return image;
+		
 	}
 	
 	public static BufferedImage scale(BufferedImage src, double y, double x) {

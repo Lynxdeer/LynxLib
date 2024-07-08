@@ -4,6 +4,7 @@ import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartParent;
 import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPart;
 import com.lynxdeer.lynxlib.utils.npcs.renderer.BodyPartType;
 import org.bukkit.Location;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -38,7 +39,8 @@ public class NPC {
 		if (!skin.ready) return false;
 		
 		for (BodyPartType type : BodyPartType.values()) {
-			bodyParts.add(new BodyPart(this, type));
+			if (type != BodyPartType.PLAYER_ROOT)
+				bodyParts.add(new BodyPart(this, type));
 		}
 		
 		return true;
@@ -71,6 +73,28 @@ public class NPC {
 	
 	public void update() {
 		for (BodyPart part : bodyParts) {
+			part.matrix = new Matrix4f();
+		}
+		
+		for (BodyPart part : bodyParts) {
+			for (BodyPartType b : part.type.getChildren()) {
+				BodyPart childPart = getBodyPart(b);
+				Vector3f offset = childPart.pivotOffset.sub(part.pivotOffset, new Vector3f());
+				
+				childPart.matrix.rotateZYX(childPart.rot); // Child's rotation
+				childPart.matrix.translate(offset); // Translate from child's pivot to parent's pivot
+				
+				childPart.matrix.rotateZYX(part.rot); // Parent's rotation
+				childPart.matrix.translate(part.partOffset); // Parent's translation
+				
+				childPart.matrix.translate(offset.negate()); // Unapply offset
+				
+				childPart.matrix.rotateXYZ(this.rotation); // Root rotation
+				childPart.matrix.translate(this.translation); // Root translation
+				
+				childPart.matrix.scale(b.getScale()); // Child's scale
+				childPart.matrix.scale(this.scale); // Root scale
+			}
 			part.update();
 		}
 	}
