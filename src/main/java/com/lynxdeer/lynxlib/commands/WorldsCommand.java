@@ -1,6 +1,7 @@
 package com.lynxdeer.lynxlib.commands;
 
 import com.lynxdeer.lynxlib.LL;
+import io.papermc.paper.entity.TeleportFlag;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -42,11 +43,23 @@ public class WorldsCommand implements CommandExecutor, TabCompleter {
 			p.sendMessage("Loaded world " + strings[1]);
 			return true;
 		}
+		if (strings[0].equalsIgnoreCase("unload")) {
+			if (strings.length == 1) {p.sendMessage("§cPlease specify the world to unload!");return true;}
+			Bukkit.unloadWorld(strings[1], true);
+			p.sendMessage("Saved and unloaded world " + strings[1]);
+			return true;
+		}
+		if (strings[0].equalsIgnoreCase("unloadAndRollback")) {
+			if (strings.length == 1) {p.sendMessage("§cPlease specify the world to unload and roll back!");return true;}
+			Bukkit.unloadWorld(strings[1], false);
+			p.sendMessage("Saved world " + strings[1]);
+			return true;
+		}
 		
 		if (strings.length > 1) {p.sendMessage("§cToo many arguments!");return true;}
 		
 		p.sendMessage("§bWarped to world " + strings[0]);
-		p.teleport(Bukkit.getWorld(strings[0]).getSpawnLocation());
+		p.teleport(Bukkit.getWorld(strings[0]).getSpawnLocation(), TeleportFlag.EntityState.RETAIN_PASSENGERS);
 		return false;
 	}
 	

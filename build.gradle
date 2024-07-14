@@ -33,7 +33,7 @@ dependencies {
     compileOnly "org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT"
     compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
     compileOnly "com.comphenix.protocol:ProtocolLib:5.0.0"
-    compileOnly "org.mineskin:java-client:1.2.4-SNAPSHOT"
+    implementation "org.mineskin:java-client:1.2.4-SNAPSHOT"
 }
 
 def targetJavaVersion = 17

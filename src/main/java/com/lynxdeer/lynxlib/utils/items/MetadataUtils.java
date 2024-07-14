@@ -2,11 +2,9 @@ package com.lynxdeer.lynxlib.utils.items;
 
 import com.lynxdeer.lynxlib.LynxLib;
 import com.lynxdeer.lynxlib.utils.misc.ClassUtils;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class MetadataUtils {
 	
@@ -15,6 +13,10 @@ public class MetadataUtils {
 	 */
 	public static void setMetadata(Entity e, String key, Object value) {
 		e.setMetadata(key, new FixedMetadataValue(LynxLib.getLLPlugin(), value));
+	}
+	
+	public static void toggleMetadata(Entity e, String key) {
+		setMetadata(e, key, !getMetadata(e, key, Boolean.class));
 	}
 	
 	public static void addMetadata(Entity e, String key, int amount) {

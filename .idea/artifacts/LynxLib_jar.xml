@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out</output-path>
     <root id="archive" name="LynxLib.jar">
       <element id="module-output" name="LynxLib.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mineskin/java-client/1.2.4-SNAPSHOT/5d6117ed7c25abf8303f58e46d301a426f556ab7/java-client-1.2.4-SNAPSHOT.jar" path-in-jar="/" />
       <element id="dir-copy" path="$PROJECT_DIR$/src/main/java/resources" />
     </root>
   </artifact>

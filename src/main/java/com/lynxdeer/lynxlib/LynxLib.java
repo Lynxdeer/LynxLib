@@ -6,7 +6,6 @@ import com.lynxdeer.lynxlib.events.LLEvents;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
 import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
 import com.lynxdeer.lynxlib.utils.npcs.Skin;
-import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mineskin.MineskinClient;
@@ -16,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class LynxLib extends JavaPlugin {
+	
 	
 	public static MineskinClient mineskinClient;
 	
