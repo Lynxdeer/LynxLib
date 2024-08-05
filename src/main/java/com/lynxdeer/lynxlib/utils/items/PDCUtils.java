@@ -123,4 +123,7 @@ public class PDCUtils {
 	public static void setPDC(String key, ItemStack item, Object value) { setPDC(LynxLib.getLLPlugin(), key, item, value); }
 	public static void setPDC(String key, Entity entity, Object value) { setPDC(LynxLib.getLLPlugin(), key, entity, value); }
 	
+	public static void togglePDC(JavaPlugin plugin, Entity entity, String key) { setPDC(plugin, key, entity, !getPDC(plugin, key, entity, PersistentDataType.BOOLEAN)); }
+	public static void togglePDC(JavaPlugin plugin, ItemStack item, String key) { setPDC(plugin, key, item, !getPDC(plugin, key, item, PersistentDataType.BOOLEAN)); }
+	
 }
