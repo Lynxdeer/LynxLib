@@ -3,8 +3,6 @@ package com.lynxdeer.lynxlib;
 import com.lynxdeer.lynxlib.commands.LynxLibCommand;
 import com.lynxdeer.lynxlib.commands.WorldsCommand;
 import com.lynxdeer.lynxlib.events.LLEvents;
-import com.lynxdeer.lynxlib.utils.display.physics.PhysicsObject;
-import com.lynxdeer.lynxlib.utils.display.physics.PhysicsUtils;
 import com.lynxdeer.lynxlib.utils.npcs.Skin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,15 +18,9 @@ public final class LynxLib extends JavaPlugin {
 	public static MineskinClient mineskinClient;
 	
 	private static JavaPlugin currentPlugin;
-	public static int tickRate = 20;
-	public static int tickRateMillis = 50;
 	
 	@Override
 	public void onEnable() {
-		
-		tickRate = 20;
-		tickRateMillis = 1000/tickRate;
-		PhysicsObject.gravityRate = (float) (9.8/Math.pow(tickRate, 2)/PhysicsUtils.collisionAccuracy);
 		
 		currentPlugin = this;
 //		Glowing.registerGlowPacketHandler();
