@@ -4,6 +4,7 @@ import com.lynxdeer.lynxlib.commands.LynxLibCommand;
 import com.lynxdeer.lynxlib.commands.WorldsCommand;
 import com.lynxdeer.lynxlib.events.LLEvents;
 import com.lynxdeer.lynxlib.utils.npcs.Skin;
+import com.lynxdeer.lynxlib.utils.packets.Glowing;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mineskin.MineskinClient;
@@ -23,7 +24,6 @@ public final class LynxLib extends JavaPlugin {
 	public void onEnable() {
 		
 		currentPlugin = this;
-//		Glowing.registerGlowPacketHandler();
 		
 		getCommand("lynxlib").setExecutor(new LynxLibCommand());
 		getCommand("worlds").setExecutor(new WorldsCommand());
@@ -40,6 +40,14 @@ public final class LynxLib extends JavaPlugin {
 			Skin.loadSkins();
 		} catch (NoClassDefFoundError e) {
 			Bukkit.getLogger().severe("Failed to register mineskin client. Oh well!");
+		}
+		
+		if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
+			try {
+				Glowing.registerGlowPacketHandler();
+			} catch (Exception e) {
+				Bukkit.getLogger().severe("Failed to register protocollib glowing. Oh well!");
+			}
 		}
 	}
 	
