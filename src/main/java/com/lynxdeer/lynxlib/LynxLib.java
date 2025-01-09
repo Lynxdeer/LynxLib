@@ -39,14 +39,14 @@ public final class LynxLib extends JavaPlugin {
 			if (!Files.exists(dir)) try {         Files.createDirectories(dir);          }catch(Exception e){e.printStackTrace();}
 			Skin.loadSkins();
 		} catch (NoClassDefFoundError e) {
-			Bukkit.getLogger().severe("Failed to register mineskin client. Oh well!");
+			Bukkit.getLogger().info("Failed to register mineskin client. Oh well!");
 		}
 		
 		if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
 			try {
 				Glowing.registerGlowPacketHandler();
 			} catch (Exception e) {
-				Bukkit.getLogger().severe("Failed to register protocollib glowing. Oh well!");
+				Bukkit.getLogger().info("Failed to register protocollib glowing. Oh well!");
 			}
 		}
 	}

@@ -12,7 +12,7 @@ public class HologramBuilder {
 	
 	public Location location;
 	
-	public Component text = Component.empty();
+	public Component text;
 	public Display.Billboard billboard = Display.Billboard.CENTER;
 	public boolean background = true;
 	public float size = 1;

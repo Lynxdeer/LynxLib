@@ -5,6 +5,7 @@ import com.lynxdeer.lynxlib.events.LLEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -98,11 +99,6 @@ public class LL {
 		return ret;
 	}
 	
-	// In preparation for 1.20.3.
-	public static int millisToTicks(int millis) {
-		return (millis / (1000 / LynxLib.tickRate));
-	}
-	
 	public static void playClearSound(Player p, String s, float volume, float pitch) {
 		Location loc = p.getEyeLocation();
 		p.playSound(loc, s, 1000, pitch);
@@ -110,6 +106,11 @@ public class LL {
 			if (lp == p) continue;
 			lp.playSound(loc, s, 4 * volume/Math.round(loc.distance(lp.getEyeLocation())), pitch);
 		}
+	}
+
+	// Minimessage shorthand
+	public static Component mm(String input) {
+		return MiniMessage.miniMessage().deserialize(input);
 	}
 	
 }

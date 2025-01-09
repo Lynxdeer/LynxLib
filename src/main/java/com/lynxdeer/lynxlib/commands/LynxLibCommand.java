@@ -63,7 +63,7 @@ public class LynxLibCommand implements CommandExecutor {
 					sender.sendMessage("§eToggled fine debug messages to §6" + consoleFineDebug);
 				}
 			}
-			if (args[0].equalsIgnoreCase("givedebugtool")) {
+			if (args[0].equalsIgnoreCase("giveDebugTool")) {
 				if (sender instanceof Player p) {
 					int id = args.length > 1 ? Integer.parseInt(args[1]) : 0;
 					p.sendMessage("§aGiven you a debug tool with id " + id + ".");
